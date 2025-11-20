@@ -3,5 +3,5 @@
   <Project Path="PoddApp.BL/PoddApp.BL.csproj" Id="1c794680-96e4-4d01-a1b7-42787c55d787" />
   <Project Path="PoddApp.DAL/PoddApp.DAL.csproj" Id="a78a7b22-9cd0-439c-b814-e0470fd45133" />
   <Project Path="PoddApp.Models/PoddApp.Models.csproj" Id="8452e7c9-582f-41d4-81c2-0f176ef29776" />
-  <Project Path="poddcastProjektGrupp22/poddcastProjektGrupp22.csproj" />
+  <Project Path="poddcastProjektGrupp22/PoddApp.UI.csproj" />
 </Solution>
