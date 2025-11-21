@@ -28,39 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonNyhetsskalla = new Button();
-            this.listBoxInformation = new ListBox();
-            this.listBoxLankar = new ListBox();
+            buttonNyhetsskalla = new Button();
+            listBoxInformation = new ListBox();
+            listBoxLankar = new ListBox();
             label1 = new Label();
-            this.buttonSpara = new Button();
+            buttonSpara = new Button();
             buttonVisning = new Button();
             textBoxURL = new TextBox();
             SuspendLayout();
             // 
-            // buttonNyhetskalla
+            // buttonNyhetsskalla
             // 
-            this.buttonNyhetsskalla.Location = new Point(12, 56);
-            this.buttonNyhetsskalla.Name = "buttonNyhetskalla";
-            this.buttonNyhetsskalla.Size = new Size(200, 23);
-            this.buttonNyhetsskalla.TabIndex = 0;
-            this.buttonNyhetsskalla.Text = "Hämta och visa nyhetskälla";
-            this.buttonNyhetsskalla.UseVisualStyleBackColor = true;
+            buttonNyhetsskalla.Location = new Point(12, 56);
+            buttonNyhetsskalla.Name = "buttonNyhetsskalla";
+            buttonNyhetsskalla.Size = new Size(200, 23);
+            buttonNyhetsskalla.TabIndex = 0;
+            buttonNyhetsskalla.Text = "Hämta och visa poddavsnitt";
+            buttonNyhetsskalla.UseVisualStyleBackColor = true;
             // 
             // listBoxInformation
             // 
-            this.listBoxInformation.FormattingEnabled = true;
-            this.listBoxInformation.Location = new Point(12, 105);
-            this.listBoxInformation.Name = "listBoxInformation";
-            this.listBoxInformation.Size = new Size(309, 304);
-            this.listBoxInformation.TabIndex = 1;
+            listBoxInformation.FormattingEnabled = true;
+            listBoxInformation.Location = new Point(12, 105);
+            listBoxInformation.Name = "listBoxInformation";
+            listBoxInformation.Size = new Size(309, 304);
+            listBoxInformation.TabIndex = 1;
             // 
             // listBoxLankar
             // 
-            this.listBoxLankar.FormattingEnabled = true;
-            this.listBoxLankar.Location = new Point(340, 105);
-            this.listBoxLankar.Name = "listBoxLankar";
-            this.listBoxLankar.Size = new Size(332, 304);
-            this.listBoxLankar.TabIndex = 2;
+            listBoxLankar.FormattingEnabled = true;
+            listBoxLankar.Location = new Point(340, 105);
+            listBoxLankar.Name = "listBoxLankar";
+            listBoxLankar.Size = new Size(332, 304);
+            listBoxLankar.TabIndex = 2;
             // 
             // label1
             // 
@@ -73,12 +73,12 @@
             // 
             // buttonSpara
             // 
-            this.buttonSpara.Location = new Point(12, 415);
-            this.buttonSpara.Name = "buttonSpara";
-            this.buttonSpara.Size = new Size(75, 23);
-            this.buttonSpara.TabIndex = 4;
-            this.buttonSpara.Text = "Spara";
-            this.buttonSpara.UseVisualStyleBackColor = true;
+            buttonSpara.Location = new Point(12, 415);
+            buttonSpara.Name = "buttonSpara";
+            buttonSpara.Size = new Size(75, 23);
+            buttonSpara.TabIndex = 4;
+            buttonSpara.Text = "Spara";
+            buttonSpara.UseVisualStyleBackColor = true;
             // 
             // buttonVisning
             // 
@@ -89,10 +89,10 @@
             buttonVisning.Text = "Ange visningsnamn";
             buttonVisning.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxURL
             // 
             textBoxURL.Location = new Point(12, 27);
-            textBoxURL.Name = "textBox1";
+            textBoxURL.Name = "textBoxURL";
             textBoxURL.Size = new Size(357, 23);
             textBoxURL.TabIndex = 6;
             // 
@@ -103,11 +103,11 @@
             ClientSize = new Size(800, 450);
             Controls.Add(textBoxURL);
             Controls.Add(buttonVisning);
-            Controls.Add(this.buttonSpara);
+            Controls.Add(buttonSpara);
             Controls.Add(label1);
-            Controls.Add(this.listBoxLankar);
-            Controls.Add(this.listBoxInformation);
-            Controls.Add(this.buttonNyhetsskalla);
+            Controls.Add(listBoxLankar);
+            Controls.Add(listBoxInformation);
+            Controls.Add(buttonNyhetsskalla);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);

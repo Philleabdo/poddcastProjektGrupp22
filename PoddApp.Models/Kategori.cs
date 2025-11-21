@@ -6,5 +6,6 @@ namespace PoddApp.Models
 {
     internal class Kategori
     {
+        public int Id { get; set; }
     }
 }
