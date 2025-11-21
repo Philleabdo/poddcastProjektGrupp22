@@ -8,7 +8,7 @@ namespace PoddApp.Models
     {
         public string Id { get; set; }
         public string PoddflodeId { get; set; }
-        public string Title { get; set; }
+        public string Titel{ get; set; }
         public string Lank { get; set; }
         public string Beskrivning { get; set; }
         public DateTime PubliceringsDatum { get; set; }
