@@ -6,5 +6,6 @@ namespace PoddApp.DAL
 {
     internal class MongoDatabas
     {
+        //här ska min kod skrivas
     }
 }
