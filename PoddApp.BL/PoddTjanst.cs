@@ -50,5 +50,13 @@ namespace PoddApp.BL
 
             return resultat;
         }
+
+        public void TaBortPodd(string poddId)
+        {
+            //Ta bort podd
+            _poddar.RemoveAll(p => p.Id == poddId);
+            //Ta bort avsnitt
+            _avsnitt.RemoveAll(a => a.PoddflodeId == poddId);
+        }
     }
 }

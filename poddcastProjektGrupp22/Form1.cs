@@ -11,6 +11,7 @@ namespace poddcastProjektGrupp22
     {
         private RssLasare _rssLasare;
         private List<Avsnitt> _senasteAvsnitt;
+        private PoddTjanst _poddTjanst;
 
         public Form1()
         {
@@ -18,8 +19,12 @@ namespace poddcastProjektGrupp22
 
             _rssLasare = new RssLasare();
             _senasteAvsnitt = new List<Avsnitt>();
+            _poddTjanst = new PoddTjanst();
 
             buttonNyhetsskalla.Click += buttonNyhetsskalla_Click;
+            buttonSpara.Click += buttonSpara_Click;
+            buttonVisa.Click += buttonVisa_Click;
+            buttonRadera.Click += buttonRadera_Click;
         }
 
         private async void buttonNyhetsskalla_Click(object sender, EventArgs e)
@@ -61,6 +66,31 @@ namespace poddcastProjektGrupp22
             {
                 MessageBox.Show("Ett fel uppstod när RSS-flödet skulle hämtas.\n" + ex.Message);
             }
+        }
+
+        private void buttonSpara_Click(object sender, EventArgs e)
+        {
+            string url = textBoxURL.Text.Trim();
+
+            //Kontrollerar att URL finns
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                MessageBox.Show("Du måste ange en URL innan du sparar.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //Kontroll att vi faktiskt har hämtaat avsnitt 
+            if(_senasteAvsnitt == null || _senasteAvsnitt.Count == 0)
+            {
+                MessageBox.Show("Det finns inga avsnitt att spara. Hämta först.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            //Här kan man välja ett snyggare namn senare, från RSS-titel
+            string visningNamn = url;
+
+            //Anropa logiklagret för att spara podden och dess avsnitt 
+            _poddTjanst.SparaNyPodd(visningNamn, url, _senasteAvsnitt);
+
+            MessageBox.Show("Källan har sparats i registret.");
         }
 
         private bool ValideraUrlFalt()

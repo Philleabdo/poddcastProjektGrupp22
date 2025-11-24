@@ -41,10 +41,10 @@
             tabPage2 = new TabPage();
             listBox3 = new ListBox();
             listBox2 = new ListBox();
-            button2 = new Button();
             button1 = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
+            buttonRadera = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -139,9 +139,9 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonRadera);
             tabPage2.Controls.Add(listBox3);
             tabPage2.Controls.Add(listBox2);
-            tabPage2.Controls.Add(button2);
             tabPage2.Controls.Add(button1);
             tabPage2.Controls.Add(listBox1);
             tabPage2.Location = new Point(4, 24);
@@ -168,15 +168,6 @@
             listBox2.Size = new Size(234, 319);
             listBox2.TabIndex = 8;
             // 
-            // button2
-            // 
-            button2.Location = new Point(689, 390);
-            button2.Name = "button2";
-            button2.Size = new Size(101, 23);
-            button2.TabIndex = 7;
-            button2.Text = "Töm hela listan";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // button1
             // 
             button1.Location = new Point(8, 7);
@@ -197,6 +188,15 @@
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
+            // 
+            // buttonRadera
+            // 
+            buttonRadera.Location = new Point(89, 7);
+            buttonRadera.Name = "buttonRadera";
+            buttonRadera.Size = new Size(75, 23);
+            buttonRadera.TabIndex = 10;
+            buttonRadera.Text = "Radera";
+            buttonRadera.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -228,9 +228,9 @@
         private TabPage tabPage2;
         private ListBox listBox3;
         private ListBox listBox2;
-        private Button button2;
         private Button button1;
         private ListBox listBox1;
         private ErrorProvider errorProvider1;
+        private Button buttonRadera;
     }
 }
