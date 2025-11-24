@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PoddApp.Models
 {
-    public class Poddflode
+    public class PoddFlode
     {
         public string Id { get; set; }
         public string Namn { get; set; }

@@ -7,6 +7,11 @@ namespace PoddApp.BL.Interfaces
 {
     public interface IPodcastService
     {
-        //Task<List
+        Task<List<PoddFlode>> HamtaAllaAsync();
+        Task<PoddFlode> HamtaMedIdAsync();
+        Task SkapaPodcastAsync(string rssUrl, string namn, string kategori);
+        Task UppdateraPodcastNamnAsync(string id, string nyttNamn);
+        Task UppdateraKategoriAsync(string id, string nyKategori);
+        Task TaBortPoddAsync(string id);
     }
 }
