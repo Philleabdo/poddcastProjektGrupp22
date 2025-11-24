@@ -1,7 +1,8 @@
 using System;
 using System.Windows.Forms;
-using PoddApp.BL;
+using PoddApp.DAL.Rss;
 using PoddApp.Models;
+using PoddApp.BL;
 using System.Collections.Generic;
 
 
@@ -79,7 +80,7 @@ namespace poddcastProjektGrupp22
                 return;
             }
             //Kontroll att vi faktiskt har hämtaat avsnitt 
-            if(_senasteAvsnitt == null || _senasteAvsnitt.Count == 0)
+            if (_senasteAvsnitt == null || _senasteAvsnitt.Count == 0)
             {
                 MessageBox.Show("Det finns inga avsnitt att spara. Hämta först.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -105,7 +106,7 @@ namespace poddcastProjektGrupp22
             }
 
             //Kollar om det ser ut som ett giltligt URL
-            if(!Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) || 
+            if (!Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) ||
             (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps))
             {
                 errorProvider1.SetError(textBoxURL, "Ogiltligt URL. Ange en riktig länk (http/https).");
@@ -114,6 +115,72 @@ namespace poddcastProjektGrupp22
             //Ifall allt är okej så tar det bort felet
             errorProvider1.SetError(textBoxURL, "");
             return true;
+        }
+
+        private void buttonVisa_Click(object sender, EventArgs e)
+        {
+            //Kolla att en källa är vald i listBox1
+            if (listBox1.SelectedItem is not Poddflode valdPodd)
+            {
+                MessageBox.Show("Välj en källa i listan först.");
+                return;
+            }
+            //Hämta alla avsnitt för den valda podden
+            var avsnitt = _poddTjanst.HamtaAvsnittForPodd(valdPodd.Id);
+
+            //Töm listor på page 2
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+
+            //Fyll med titlar + datum + länk
+            foreach (var a in avsnitt)
+            {
+                listBox2.Items.Add(a.Titel);
+
+                string infoRad = $"{a.PubliceringsDatum:yyyy-MM-dd} - {a.Lank}";
+                listBox3.Items.Add(infoRad);
+            }
+        }
+
+        private void LaddaSparadePoddar()
+        {
+            var allaPoddar = _poddTjanst.HamtaAllaPoddar();
+
+            listBox1.Items.Clear();
+
+            foreach(var podd in allaPoddar)
+            {
+                listBox1.Items.Add(podd);
+            }
+
+            listBox1.DisplayMember = "Namn";
+        }
+
+        private void buttonRadera_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem is not Poddflode valdPodd)
+            {
+                MessageBox.Show("Välj en källa att radera.");
+                return;
+            }
+
+            var svar = MessageBox.Show(
+                $"Vill du verkligen ta bort '{valdPodd.Namn}'?",
+                "Bekräfta borttagningen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (svar == DialogResult.Yes)
+            {
+                _poddTjanst.TaBortPodd(valdPodd.Id);
+
+                //Ladda om listan med sparade poddar
+                LaddaSparadePoddar();
+
+                //Töm avsnittslistorna
+                listBox2.Items.Clear();
+                listBox3.Items.Clear();
+            }
         }
     }
 }

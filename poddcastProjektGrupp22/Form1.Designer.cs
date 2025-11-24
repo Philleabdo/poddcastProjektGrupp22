@@ -39,12 +39,12 @@
             listBoxInformation = new ListBox();
             buttonNyhetsskalla = new Button();
             tabPage2 = new TabPage();
+            buttonRadera = new Button();
             listBox3 = new ListBox();
             listBox2 = new ListBox();
-            button1 = new Button();
+            buttonVisa = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
-            buttonRadera = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -142,7 +142,7 @@
             tabPage2.Controls.Add(buttonRadera);
             tabPage2.Controls.Add(listBox3);
             tabPage2.Controls.Add(listBox2);
-            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(buttonVisa);
             tabPage2.Controls.Add(listBox1);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
@@ -151,6 +151,15 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonRadera
+            // 
+            buttonRadera.Location = new Point(89, 7);
+            buttonRadera.Name = "buttonRadera";
+            buttonRadera.Size = new Size(75, 23);
+            buttonRadera.TabIndex = 10;
+            buttonRadera.Text = "Radera";
+            buttonRadera.UseVisualStyleBackColor = true;
             // 
             // listBox3
             // 
@@ -168,14 +177,14 @@
             listBox2.Size = new Size(234, 319);
             listBox2.TabIndex = 8;
             // 
-            // button1
+            // buttonVisa
             // 
-            button1.Location = new Point(8, 7);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 6;
-            button1.Text = "Visa";
-            button1.UseVisualStyleBackColor = true;
+            buttonVisa.Location = new Point(8, 7);
+            buttonVisa.Name = "buttonVisa";
+            buttonVisa.Size = new Size(75, 23);
+            buttonVisa.TabIndex = 6;
+            buttonVisa.Text = "Visa";
+            buttonVisa.UseVisualStyleBackColor = true;
             // 
             // listBox1
             // 
@@ -188,15 +197,6 @@
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
-            // 
-            // buttonRadera
-            // 
-            buttonRadera.Location = new Point(89, 7);
-            buttonRadera.Name = "buttonRadera";
-            buttonRadera.Size = new Size(75, 23);
-            buttonRadera.TabIndex = 10;
-            buttonRadera.Text = "Radera";
-            buttonRadera.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -228,7 +228,7 @@
         private TabPage tabPage2;
         private ListBox listBox3;
         private ListBox listBox2;
-        private Button button1;
+        private Button buttonVisa;
         private ListBox listBox1;
         private ErrorProvider errorProvider1;
         private Button buttonRadera;
