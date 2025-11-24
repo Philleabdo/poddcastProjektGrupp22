@@ -57,6 +57,29 @@ namespace poddcastProjektGrupp22
                 MessageBox.Show("Ett fel uppstod när RSS-flödet skulle hämtas.\n" + ex.Message);
             }
         }
+
+        private bool ValideraUrlFalt()
+        {
+            string url = textBoxURL.Text.Trim();
+
+            //Kolla om tomt
+            if (string.IsNullOrEmpty(url))
+            {
+                errorProvider1.SetError(textBoxURL, "URL-fältet får inte vara tomt.");
+                return false;
+            }
+
+            //Kollar om det ser ut som ett giltligt URL
+            if(!Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult) || 
+            (uriResult.Scheme != Uri.UriSchemeHttp && uriResult.Scheme != Uri.UriSchemeHttps))
+            {
+                errorProvider1.SetError(textBoxURL, "Ogiltligt URL. Ange en riktig länk (http/https).");
+                return false;
+            }
+            //Ifall allt är okej så tar det bort felet
+            errorProvider1.SetError(textBoxURL, "");
+            return true;
+        }
     }
 }
     

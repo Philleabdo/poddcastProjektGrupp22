@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
             textBoxURL = new TextBox();
             buttonVisning = new Button();
             buttonSpara = new Button();
@@ -38,14 +38,17 @@
             listBoxLankar = new ListBox();
             listBoxInformation = new ListBox();
             buttonNyhetsskalla = new Button();
+            tabPage2 = new TabPage();
             listBox3 = new ListBox();
             listBox2 = new ListBox();
             button2 = new Button();
             button1 = new Button();
             listBox1 = new ListBox();
+            errorProvider1 = new ErrorProvider(components);
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -74,21 +77,6 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "tabPage1";
             tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(listBox3);
-            tabPage2.Controls.Add(listBox2);
-            tabPage2.Controls.Add(button2);
-            tabPage2.Controls.Add(button1);
-            tabPage2.Controls.Add(listBox1);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(793, 422);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
             // 
             // textBoxURL
             // 
@@ -149,6 +137,21 @@
             buttonNyhetsskalla.Text = "Hämta och visa poddavsnitt";
             buttonNyhetsskalla.UseVisualStyleBackColor = true;
             // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(listBox3);
+            tabPage2.Controls.Add(listBox2);
+            tabPage2.Controls.Add(button2);
+            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(listBox1);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(793, 422);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "tabPage2";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
             // listBox3
             // 
             listBox3.FormattingEnabled = true;
@@ -191,6 +194,10 @@
             listBox1.Size = new Size(257, 319);
             listBox1.TabIndex = 5;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -203,6 +210,7 @@
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -223,5 +231,6 @@
         private Button button2;
         private Button button1;
         private ListBox listBox1;
+        private ErrorProvider errorProvider1;
     }
 }
