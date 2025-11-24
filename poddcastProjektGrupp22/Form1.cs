@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using PoddApp.DAL.Rss;
 using PoddApp.Models;
-using PoddApp.BL;
+using PoddApp.BL.Services;
 using System.Collections.Generic;
 
 
