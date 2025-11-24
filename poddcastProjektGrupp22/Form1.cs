@@ -24,6 +24,11 @@ namespace poddcastProjektGrupp22
 
         private async void buttonNyhetsskalla_Click(object sender, EventArgs e)
         {
+            if (!ValideraUrlFalt())
+            {
+                return;
+            }
+
             string url = textBoxURL.Text.Trim();
             if (string.IsNullOrEmpty(url))
             {
