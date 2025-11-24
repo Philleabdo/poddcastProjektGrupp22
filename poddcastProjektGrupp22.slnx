@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="Form2/Form2.csproj" Id="7cdc12c3-0620-47c6-ad7a-87c3f9a52277" />
   <Project Path="PoddApp.BL/PoddApp.BL.csproj" Id="1c794680-96e4-4d01-a1b7-42787c55d787" />
   <Project Path="PoddApp.DAL/PoddApp.DAL.csproj" Id="a78a7b22-9cd0-439c-b814-e0470fd45133" />
   <Project Path="PoddApp.Models/PoddApp.Models.csproj" Id="8452e7c9-582f-41d4-81c2-0f176ef29776" />
