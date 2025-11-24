@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PoddApp.DAL\PoddApp.DAL.csproj" />
     <ProjectReference Include="..\PoddApp.Models\PoddApp.Models.csproj" />
   </ItemGroup>
 

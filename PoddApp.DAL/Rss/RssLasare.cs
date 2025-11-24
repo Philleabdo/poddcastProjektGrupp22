@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PoddApp.Models;
 
-namespace PoddApp.BL
+namespace PoddApp.DAL.Rss
 {
     public class RssLasare
     {
