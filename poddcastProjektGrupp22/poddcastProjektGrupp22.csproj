@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="3.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Form2\Form2.csproj" />
     <ProjectReference Include="..\PoddApp.BL\PoddApp.BL.csproj" />
     <ProjectReference Include="..\PoddApp.DAL\PoddApp.DAL.csproj" />
