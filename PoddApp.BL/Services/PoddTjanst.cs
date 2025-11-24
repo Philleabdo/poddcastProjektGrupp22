@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using PoddApp.Models;
 
-namespace PoddApp.BL
+namespace PoddApp.BL.Services
 {
     public class PoddTjanst
     {
