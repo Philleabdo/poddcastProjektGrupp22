@@ -7,7 +7,7 @@ namespace PoddApp.BL.Interfaces
 {
     internal interface IPoddFlodeService
     {
-        Task Spara
+        Task Spara();
         Task<List<Poddflode>> HamtaAllaAsync();
         Task<Poddflode> HamtaMedIdAsync(string id);
         Task SkapaAsync(string rssUrl, string namn, string kategori);
