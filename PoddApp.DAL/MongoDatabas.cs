@@ -7,7 +7,7 @@ namespace PoddApp.DAL
     {
         private readonly IMongoDatabase _database;
 
-        private const string ConnectionString = "mongodb+srv://philipabdo6:<db_password>@orumongodb.213vyyw.mongodb.net/?appName=OruMongoDB";
+        private const string ConnectionString = "mongodb+srv://PoddAdmin:PoddAdminLogin@orumongodb.213vyyw.mongodb.net/?appName=OruMongoDB";
 
         private const string DatabaseName = "OruMongoDB";
 
