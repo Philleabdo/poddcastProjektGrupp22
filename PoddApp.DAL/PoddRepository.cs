@@ -42,5 +42,28 @@ namespace PoddApp.DAL
 
         }
 
+
+
+        public List<Avsnitt> HamtaAvsnittForPodd(string poddId) 
+        { 
+        
+            var filter = Builders<Avsnitt>.Filter.Eq(a=> a.PoddflodeId, poddId);
+
+            return _context.Avsnitt.Find(filter).ToList();
+
+
+        }
+
+
+        public void TaBortPodd(string poddId) 
+        { 
+            var poddFilter = Builders<Poddflode>.Filter.Eq(p => p.Id, poddId);
+            _context.Poddfloden.DeleteOne(poddFilter);
+
+            var avsnittFilter = Builders<Avsnitt>.Filter.Eq(a => a.PoddflodeId, poddId);
+            _context.Avsnitt.DeleteMany(avsnittFilter);
+        }
+
+
     }
 }
