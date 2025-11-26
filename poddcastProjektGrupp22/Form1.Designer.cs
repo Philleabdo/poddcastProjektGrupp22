@@ -45,6 +45,7 @@
             buttonVisa = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
+            buttonVisaSparadePoddar = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -139,6 +140,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonVisaSparadePoddar);
             tabPage2.Controls.Add(buttonRadera);
             tabPage2.Controls.Add(listBox3);
             tabPage2.Controls.Add(listBox2);
@@ -198,6 +200,15 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // buttonVisaSparadePoddar
+            // 
+            buttonVisaSparadePoddar.Location = new Point(170, 7);
+            buttonVisaSparadePoddar.Name = "buttonVisaSparadePoddar";
+            buttonVisaSparadePoddar.Size = new Size(167, 23);
+            buttonVisaSparadePoddar.TabIndex = 11;
+            buttonVisaSparadePoddar.Text = "Visa alla sparade poddar";
+            buttonVisaSparadePoddar.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -232,5 +243,6 @@
         private ListBox listBox1;
         private ErrorProvider errorProvider1;
         private Button buttonRadera;
+        private Button buttonVisaSparadePoddar;
     }
 }

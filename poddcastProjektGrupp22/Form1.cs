@@ -25,6 +25,7 @@ namespace poddcastProjektGrupp22
             buttonNyhetsskalla.Click += buttonNyhetsskalla_Click;
             buttonSpara.Click += buttonSpara_Click;
             buttonVisa.Click += buttonVisa_Click;
+            buttonVisaSparadePoddar.Click += buttonVisaSparadePoddar_Click;
             buttonRadera.Click += buttonRadera_Click;
         }
 
@@ -182,6 +183,12 @@ namespace poddcastProjektGrupp22
                 listBox3.Items.Clear();
             }
         }
+
+        private void buttonVisaSparadePoddar_Click(object sender, EventArgs e)
+        {
+            LaddaSparadePoddar();
+        }
+
     }
 }
     
