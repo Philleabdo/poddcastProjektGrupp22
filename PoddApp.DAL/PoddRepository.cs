@@ -38,7 +38,7 @@ namespace PoddApp.DAL
         public List<Poddflode> HamtaAllaPoddar() 
         {
 
-            return _context.Poddfloden.Find(p => true).ToList();
+            return _context.Poddfloden.Find(p => true).ToList();//
 
         }
 
