@@ -10,7 +10,7 @@ namespace PoddApp.BL.Services
         private readonly List<Kategori> kategorier = new List<Kategori>();
 
 
-        public void SkapaKategori(string namn)
+        public Kategori SkapaKategori(string namn)
         {
             // 1. Validering
             if (string.IsNullOrWhiteSpace(namn))
@@ -18,7 +18,7 @@ namespace PoddApp.BL.Services
 
             // 2. Kolla om kategorin redan finns (case insensitive)
             bool finnsRedan = kategorier
-                .Exists(k.Namn.Equals(namn, StringComparison.OrdinalIgnoreCase));
+                .Exists(k => k.Namn.Equals(namn, StringComparison.OrdinalIgnoreCase));
 
             if (finnsRedan)
                 throw new InvalidOperationException("En kategori med detta namn finns redan.");
