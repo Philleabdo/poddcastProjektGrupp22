@@ -48,7 +48,6 @@ namespace PoddApp.DAL.Rss
 
                     var avsnitt = new Avsnitt
                     {
-                        Id = Guid.NewGuid().ToString(),
                         Titel = titel,
                         Lank = link,
                         Beskrivning = beskrivning,
