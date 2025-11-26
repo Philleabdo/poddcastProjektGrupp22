@@ -7,35 +7,40 @@ namespace PoddApp.BL.Services
 {
     public class KategoriTjanst
     {
-        private List<Kategori> kategorier = new List<Kategori>();
+        private readonly List<Kategori> kategorier = new List<Kategori>();
 
 
-        public void SkapaKategori(string namn)
+        public Kategori SkapaKategori(string namn)
         {
+            // 1. Validering
             if (string.IsNullOrWhiteSpace(namn))
                 throw new ArgumentException("Kategorin måste ha ett namn.");
 
+            // 2. Kolla om kategorin redan finns (case insensitive)
+            bool finnsRedan = kategorier
+                .Exists(k => k.Namn.Equals(namn, StringComparison.OrdinalIgnoreCase));
+
+            if (finnsRedan)
+                throw new InvalidOperationException("En kategori med detta namn finns redan.");
 
 
-            foreach (var kategori in kategorier)
-            {
-                if (kategori.Namn.Equals(namn, StringComparison.OrdinalIgnoreCase))
-                    throw new Exception("En kategori med detta namn finns redan.");
-
-            }
-
+            // 3. Skapa kategorin
             var nyKategori = new Kategori
             {
                 Id = Guid.NewGuid().ToString(),
-                Namn = namn
+                Namn = namn.Trim()
             };
 
+           // 4. Lägg till
             kategorier.Add(nyKategori);
+
+            return nyKategori;
         }
 
         public List<Kategori> HamtaAllaKategorier()
         {
-            return kategorier;
+            // Returnera kopia så Ui inte kan råka ändra listan direkt
+            return new List<Kategori>(kategorier);
         }
 
         public void AndraNamn(string kategoriId, string nyttNamn)
@@ -49,12 +54,23 @@ namespace PoddApp.BL.Services
             if (kategori == null)
                 throw new Exception("Kategorin finns inte.");
 
-            kategori.Namn = nyttNamn;
+            // Kolla om någon annan kategori har samma namn
+            if (kategorier.Exists(k =>
+            k.Namn.Equals(nyttNamn, StringComparison.OrdinalIgnoreCase) &&
+            k.Id != kategoriId))
+            {
+                throw new InvalidOperationException("En annan kategori har redan detta namn.");
+            }
+
+            kategori.Namn = nyttNamn.Trim();
         }
 
         public void TaBortKategori(string kategoriId)
         {
-            kategorier.RemoveAll(k => k.Id == kategoriId);
+            int antalBorttagna = kategorier.RemoveAll(k => k.Id == kategoriId);
+
+            if (antalBorttagna == 0)
+                throw new InvalidOperationException("Kategorin finns inte.");
         }
 
     }
