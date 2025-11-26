@@ -17,14 +17,14 @@ namespace PoddApp.BL.Services
             _repo = new PoddRepository();
         }
 
-        public void SparaNyPodd(string visningsNamn, string rssUrl, List<Avsnitt>avsnitt)
+        public void SparaNyPodd(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
         {
             var podd = new Poddflode
             {
                 Namn = visningsNamn,
                 RssUrl = rssUrl,
-                Kategori = null,
-                SkapaDatum = DateTime.Now
+                Kategori = kategoriNamn,
+                SkapaDatum = DateTime.Now,
             };
 
             _repo.SparaNyPodd(podd, avsnitt);

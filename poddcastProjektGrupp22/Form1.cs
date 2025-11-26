@@ -13,14 +13,20 @@ namespace poddcastProjektGrupp22
         private RssLasare _rssLasare;
         private List<Avsnitt> _senasteAvsnitt;
         private PoddTjanst _poddTjanst;
+        private List<Poddflode> _sparadePoddar;
+        private readonly KategoriTjanst _kategoriTjanst = new KategoriTjanst();
+        
 
         public Form1()
         {
             InitializeComponent();
 
+            this.Load += Form1_Load;
+
             _rssLasare = new RssLasare();
             _senasteAvsnitt = new List<Avsnitt>();
             _poddTjanst = new PoddTjanst();
+            _sparadePoddar = new List<Poddflode>();
 
             buttonNyhetsskalla.Click += buttonNyhetsskalla_Click;
             buttonSpara.Click += buttonSpara_Click;
@@ -89,9 +95,33 @@ namespace poddcastProjektGrupp22
             //Här kan man välja ett snyggare namn senare, från RSS-titel
             string visningNamn = url;
 
-            //Anropa logiklagret för att spara podden och dess avsnitt 
-            _poddTjanst.SparaNyPodd(visningNamn, url, _senasteAvsnitt);
+            //Hämtar valda kategorier
+            string kategoriText = comboBoxKategori.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(kategoriText))
+            {
+                kategoriText = "(Ingen kategori)";
+            }
+
+            string kategoriNamn;
+            if(kategoriText == "(Ingen kategori)")
+            {
+                kategoriNamn = kategoriText;
+            }
+            else
+            {
+                var befintlig = _kategoriTjanst
+                    .HamtaAllaKategorier()
+                    .Find(k => k.Namn.Equals(kategoriText, StringComparison.OrdinalIgnoreCase));
+                if (befintlig == null)
+                {
+                    befintlig = _kategoriTjanst.SkapaKategori(kategoriText);
+                    comboBoxKategori.Items.Add(befintlig.Namn);
+                }
+                kategoriNamn = befintlig.Namn;
+            }
+
+                _poddTjanst.SparaNyPodd(visningNamn, url, kategoriNamn, _senasteAvsnitt);
             MessageBox.Show("Källan har sparats i registret.");
         }
 
@@ -120,13 +150,16 @@ namespace poddcastProjektGrupp22
 
         private void buttonVisa_Click(object sender, EventArgs e)
         {
+            int idx = listBox1.SelectedIndex;
             //Kolla att en källa är vald i listBox1
-            if (listBox1.SelectedItem is not Poddflode valdPodd)
+            if (idx < 0 || idx >= _sparadePoddar.Count)
             {
                 MessageBox.Show("Välj en källa i listan först.");
                 return;
             }
-            //Hämta alla avsnitt för den valda podden
+            //Hämta valda podd utifrån index
+            var valdPodd = _sparadePoddar[idx];
+            //Hämta avsnitt för vald podd
             var avsnitt = _poddTjanst.HamtaAvsnittForPodd(valdPodd.Id);
 
             //Töm listor på page 2
@@ -147,23 +180,39 @@ namespace poddcastProjektGrupp22
         {
             var allaPoddar = _poddTjanst.HamtaAllaPoddar();
 
+            _sparadePoddar = allaPoddar;
+
             listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
 
-            foreach(var podd in allaPoddar)
+            foreach (var podd in _sparadePoddar)
             {
-                listBox1.Items.Add(podd);
-            }
+                //Länken
+                listBox1.Items.Add(podd.RssUrl);
 
-            listBox1.DisplayMember = "Namn";
+                //Info
+                listBox2.Items.Add(podd.Namn + " - " + podd.SkapaDatum.ToString("yyyy-MM-dd"));
+
+                string kategoriNamn = string.IsNullOrWhiteSpace(podd.Kategori)
+                    ?"(Ingen kategori)"
+                    : podd.Kategori;
+                //Kategori
+                listBox3.Items.Add(kategoriNamn);
+            }
         }
 
         private void buttonRadera_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedItem is not Poddflode valdPodd)
+            int idx = listBox1.SelectedIndex;
+
+            if (idx < 0 || idx >= _sparadePoddar.Count)
             {
                 MessageBox.Show("Välj en källa att radera.");
                 return;
             }
+
+            var valdPodd = _sparadePoddar[idx];
 
             var svar = MessageBox.Show(
                 $"Vill du verkligen ta bort '{valdPodd.Namn}'?",
@@ -189,7 +238,24 @@ namespace poddcastProjektGrupp22
             LaddaSparadePoddar();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            _kategoriTjanst.SkapaKategori("Nyheter");
+            _kategoriTjanst.SkapaKategori("Teknik");
+            _kategoriTjanst.SkapaKategori("Sport");
+            _kategoriTjanst.SkapaKategori("Underhållning");
+
+            comboBoxKategori.Items.Clear();
+
+            var kategorier = _kategoriTjanst.HamtaAllaKategorier();
+
+            foreach (var k in kategorier)
+            {
+                comboBoxKategori.Items.Add(k.Namn);
+            }
+
+        }
     }
 }
-    
+
 

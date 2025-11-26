@@ -39,13 +39,14 @@
             listBoxInformation = new ListBox();
             buttonNyhetsskalla = new Button();
             tabPage2 = new TabPage();
+            buttonVisaSparadePoddar = new Button();
             buttonRadera = new Button();
             listBox3 = new ListBox();
             listBox2 = new ListBox();
             buttonVisa = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
-            buttonVisaSparadePoddar = new Button();
+            comboBoxKategori = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -64,6 +65,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(comboBoxKategori);
             tabPage1.Controls.Add(textBoxURL);
             tabPage1.Controls.Add(buttonVisning);
             tabPage1.Controls.Add(buttonSpara);
@@ -154,6 +156,15 @@
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonVisaSparadePoddar
+            // 
+            buttonVisaSparadePoddar.Location = new Point(170, 7);
+            buttonVisaSparadePoddar.Name = "buttonVisaSparadePoddar";
+            buttonVisaSparadePoddar.Size = new Size(167, 23);
+            buttonVisaSparadePoddar.TabIndex = 11;
+            buttonVisaSparadePoddar.Text = "Visa alla sparade poddar";
+            buttonVisaSparadePoddar.UseVisualStyleBackColor = true;
+            // 
             // buttonRadera
             // 
             buttonRadera.Location = new Point(89, 7);
@@ -200,14 +211,13 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // buttonVisaSparadePoddar
+            // comboBoxKategori
             // 
-            buttonVisaSparadePoddar.Location = new Point(170, 7);
-            buttonVisaSparadePoddar.Name = "buttonVisaSparadePoddar";
-            buttonVisaSparadePoddar.Size = new Size(167, 23);
-            buttonVisaSparadePoddar.TabIndex = 11;
-            buttonVisaSparadePoddar.Text = "Visa alla sparade poddar";
-            buttonVisaSparadePoddar.UseVisualStyleBackColor = true;
+            comboBoxKategori.FormattingEnabled = true;
+            comboBoxKategori.Location = new Point(366, 23);
+            comboBoxKategori.Name = "comboBoxKategori";
+            comboBoxKategori.Size = new Size(121, 23);
+            comboBoxKategori.TabIndex = 14;
             // 
             // Form1
             // 
@@ -244,5 +254,6 @@
         private ErrorProvider errorProvider1;
         private Button buttonRadera;
         private Button buttonVisaSparadePoddar;
+        private ComboBox comboBoxKategori;
     }
 }
