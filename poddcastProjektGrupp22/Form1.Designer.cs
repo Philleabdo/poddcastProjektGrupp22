@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            comboBoxKategori = new ComboBox();
             textBoxURL = new TextBox();
             buttonVisning = new Button();
             buttonSpara = new Button();
@@ -46,7 +47,6 @@
             buttonVisa = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
-            comboBoxKategori = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -57,10 +57,11 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new Point(-1, 1);
+            tabControl1.Location = new Point(-1, 2);
+            tabControl1.Margin = new Padding(4, 5, 4, 5);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(801, 450);
+            tabControl1.Size = new Size(1144, 750);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -73,35 +74,48 @@
             tabPage1.Controls.Add(listBoxLankar);
             tabPage1.Controls.Add(listBoxInformation);
             tabPage1.Controls.Add(buttonNyhetsskalla);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.Location = new Point(4, 34);
+            tabPage1.Margin = new Padding(4, 5, 4, 5);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(793, 422);
+            tabPage1.Padding = new Padding(4, 5, 4, 5);
+            tabPage1.Size = new Size(1136, 712);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
+            tabPage1.Text = "Hämta källa";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxKategori
+            // 
+            comboBoxKategori.FormattingEnabled = true;
+            comboBoxKategori.Location = new Point(523, 38);
+            comboBoxKategori.Margin = new Padding(4, 5, 4, 5);
+            comboBoxKategori.Name = "comboBoxKategori";
+            comboBoxKategori.Size = new Size(171, 33);
+            comboBoxKategori.TabIndex = 14;
             // 
             // textBoxURL
             // 
-            textBoxURL.Location = new Point(3, 22);
+            textBoxURL.Location = new Point(4, 37);
+            textBoxURL.Margin = new Padding(4, 5, 4, 5);
             textBoxURL.Name = "textBoxURL";
-            textBoxURL.Size = new Size(357, 23);
+            textBoxURL.Size = new Size(508, 31);
             textBoxURL.TabIndex = 13;
             // 
             // buttonVisning
             // 
-            buttonVisning.Location = new Point(628, 22);
+            buttonVisning.Location = new Point(897, 37);
+            buttonVisning.Margin = new Padding(4, 5, 4, 5);
             buttonVisning.Name = "buttonVisning";
-            buttonVisning.Size = new Size(142, 23);
+            buttonVisning.Size = new Size(203, 38);
             buttonVisning.TabIndex = 12;
             buttonVisning.Text = "Ange visningsnamn";
             buttonVisning.UseVisualStyleBackColor = true;
             // 
             // buttonSpara
             // 
-            buttonSpara.Location = new Point(547, 22);
+            buttonSpara.Location = new Point(781, 37);
+            buttonSpara.Margin = new Padding(4, 5, 4, 5);
             buttonSpara.Name = "buttonSpara";
-            buttonSpara.Size = new Size(75, 23);
+            buttonSpara.Size = new Size(107, 38);
             buttonSpara.TabIndex = 11;
             buttonSpara.Text = "Spara";
             buttonSpara.UseVisualStyleBackColor = true;
@@ -109,33 +123,37 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 4);
+            label1.Location = new Point(4, 7);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(62, 15);
+            label1.Size = new Size(94, 25);
             label1.TabIndex = 10;
             label1.Text = "Ange URL:";
             // 
             // listBoxLankar
             // 
             listBoxLankar.FormattingEnabled = true;
-            listBoxLankar.Location = new Point(331, 100);
+            listBoxLankar.Location = new Point(473, 167);
+            listBoxLankar.Margin = new Padding(4, 5, 4, 5);
             listBoxLankar.Name = "listBoxLankar";
-            listBoxLankar.Size = new Size(332, 304);
+            listBoxLankar.Size = new Size(473, 504);
             listBoxLankar.TabIndex = 9;
             // 
             // listBoxInformation
             // 
             listBoxInformation.FormattingEnabled = true;
-            listBoxInformation.Location = new Point(3, 100);
+            listBoxInformation.Location = new Point(4, 167);
+            listBoxInformation.Margin = new Padding(4, 5, 4, 5);
             listBoxInformation.Name = "listBoxInformation";
-            listBoxInformation.Size = new Size(309, 304);
+            listBoxInformation.Size = new Size(440, 504);
             listBoxInformation.TabIndex = 8;
             // 
             // buttonNyhetsskalla
             // 
-            buttonNyhetsskalla.Location = new Point(3, 51);
+            buttonNyhetsskalla.Location = new Point(4, 85);
+            buttonNyhetsskalla.Margin = new Padding(4, 5, 4, 5);
             buttonNyhetsskalla.Name = "buttonNyhetsskalla";
-            buttonNyhetsskalla.Size = new Size(200, 23);
+            buttonNyhetsskalla.Size = new Size(286, 38);
             buttonNyhetsskalla.TabIndex = 7;
             buttonNyhetsskalla.Text = "Hämta och visa poddavsnitt";
             buttonNyhetsskalla.UseVisualStyleBackColor = true;
@@ -148,28 +166,31 @@
             tabPage2.Controls.Add(listBox2);
             tabPage2.Controls.Add(buttonVisa);
             tabPage2.Controls.Add(listBox1);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.Location = new Point(4, 34);
+            tabPage2.Margin = new Padding(4, 5, 4, 5);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(793, 422);
+            tabPage2.Padding = new Padding(4, 5, 4, 5);
+            tabPage2.Size = new Size(1136, 712);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
+            tabPage2.Text = "Visa Register";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // buttonVisaSparadePoddar
             // 
-            buttonVisaSparadePoddar.Location = new Point(170, 7);
+            buttonVisaSparadePoddar.Location = new Point(243, 12);
+            buttonVisaSparadePoddar.Margin = new Padding(4, 5, 4, 5);
             buttonVisaSparadePoddar.Name = "buttonVisaSparadePoddar";
-            buttonVisaSparadePoddar.Size = new Size(167, 23);
+            buttonVisaSparadePoddar.Size = new Size(239, 38);
             buttonVisaSparadePoddar.TabIndex = 11;
             buttonVisaSparadePoddar.Text = "Visa alla sparade poddar";
             buttonVisaSparadePoddar.UseVisualStyleBackColor = true;
             // 
             // buttonRadera
             // 
-            buttonRadera.Location = new Point(89, 7);
+            buttonRadera.Location = new Point(127, 12);
+            buttonRadera.Margin = new Padding(4, 5, 4, 5);
             buttonRadera.Name = "buttonRadera";
-            buttonRadera.Size = new Size(75, 23);
+            buttonRadera.Size = new Size(107, 38);
             buttonRadera.TabIndex = 10;
             buttonRadera.Text = "Radera";
             buttonRadera.UseVisualStyleBackColor = true;
@@ -177,24 +198,27 @@
             // listBox3
             // 
             listBox3.FormattingEnabled = true;
-            listBox3.Location = new Point(533, 57);
+            listBox3.Location = new Point(761, 95);
+            listBox3.Margin = new Padding(4, 5, 4, 5);
             listBox3.Name = "listBox3";
-            listBox3.Size = new Size(202, 319);
+            listBox3.Size = new Size(287, 529);
             listBox3.TabIndex = 9;
             // 
             // listBox2
             // 
             listBox2.FormattingEnabled = true;
-            listBox2.Location = new Point(293, 57);
+            listBox2.Location = new Point(419, 95);
+            listBox2.Margin = new Padding(4, 5, 4, 5);
             listBox2.Name = "listBox2";
-            listBox2.Size = new Size(234, 319);
+            listBox2.Size = new Size(333, 529);
             listBox2.TabIndex = 8;
             // 
             // buttonVisa
             // 
-            buttonVisa.Location = new Point(8, 7);
+            buttonVisa.Location = new Point(11, 12);
+            buttonVisa.Margin = new Padding(4, 5, 4, 5);
             buttonVisa.Name = "buttonVisa";
-            buttonVisa.Size = new Size(75, 23);
+            buttonVisa.Size = new Size(107, 38);
             buttonVisa.TabIndex = 6;
             buttonVisa.Text = "Visa";
             buttonVisa.UseVisualStyleBackColor = true;
@@ -202,29 +226,23 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(30, 57);
+            listBox1.Location = new Point(43, 95);
+            listBox1.Margin = new Padding(4, 5, 4, 5);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(257, 319);
+            listBox1.Size = new Size(365, 529);
             listBox1.TabIndex = 5;
             // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // comboBoxKategori
-            // 
-            comboBoxKategori.FormattingEnabled = true;
-            comboBoxKategori.Location = new Point(366, 23);
-            comboBoxKategori.Name = "comboBoxKategori";
-            comboBoxKategori.Size = new Size(121, 23);
-            comboBoxKategori.TabIndex = 14;
-            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1143, 750);
             Controls.Add(tabControl1);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
             Text = "Form1";
             tabControl1.ResumeLayout(false);
