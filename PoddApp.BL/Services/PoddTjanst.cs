@@ -17,7 +17,7 @@ namespace PoddApp.BL.Services
             _repo = new PoddRepository();
         }
 
-        public void SparaNyPodd(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
+        public async Task SparaNyPodd(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
         {
             var podd = new Poddflode
             {
@@ -27,22 +27,22 @@ namespace PoddApp.BL.Services
                 SkapaDatum = DateTime.Now,
             };
 
-            _repo.SparaNyPodd(podd, avsnitt);
+           await _repo.SparaNyPoddAsync(podd, avsnitt);
         }
 
-        public List<Poddflode> HamtaAllaPoddar() 
+        public async  Task<List<Poddflode>> HamtaAllaPoddarAsync() 
         { 
-            return _repo.HamtaAllaPoddar();
+            return await _repo.HamtaAllaPoddarAsync();
         }
 
-        public List<Avsnitt> HamtaAvsnittForPodd(string poddId)
+        public async Task<List<Avsnitt>> HamtaAvsnittForPoddAsync(string poddId)
         {
-            return _repo.HamtaAvsnittForPodd(poddId);
+            return await _repo.HamtaAvsnittForPoddAsync(poddId);
         }
 
-        public void TaBortPodd(string poddId)
+        public async Task TaBortPoddAsync(string poddId)
         {
-            _repo.TaBortPodd(poddId);
+           await _repo.TaBortPoddAsync(poddId);
         }
 
         //Tillfälligt register (byter till MongoDB senare)

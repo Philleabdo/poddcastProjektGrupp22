@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB.Driver;
 using PoddApp.Models;
 
@@ -16,11 +17,11 @@ namespace PoddApp.DAL
             _context = new MongoDatabas();
         }
 
-
-        public void SparaNyPodd(Poddflode podd, List<Avsnitt> avsnitt) 
+        //spara ny podd + avsnitt 
+        public async Task SparaNyPoddAsync(Poddflode podd, List<Avsnitt> avsnitt) 
         {
 
-            _context.Poddfloden.InsertOne(podd);
+           await _context.Poddfloden.InsertOneAsync(podd);
 
             foreach(var a in avsnitt) 
             { 
@@ -29,39 +30,39 @@ namespace PoddApp.DAL
 
             if(avsnitt.Count > 0) 
             { 
-                _context.Avsnitt.InsertMany(avsnitt);
+               await _context.Avsnitt.InsertManyAsync(avsnitt);
             }
 
         }
 
 
-        public List<Poddflode> HamtaAllaPoddar() 
+        public async Task<List<Poddflode>> HamtaAllaPoddarAsync() 
         {
 
-            return _context.Poddfloden.Find(p => true).ToList();//
+            return await _context.Poddfloden.Find(p => true).ToListAsync();//
 
         }
 
 
 
-        public List<Avsnitt> HamtaAvsnittForPodd(string poddId) 
+        public async Task<List<Avsnitt>> HamtaAvsnittForPoddAsync(string poddId) 
         { 
         
             var filter = Builders<Avsnitt>.Filter.Eq(a=> a.PoddflodeId, poddId);
 
-            return _context.Avsnitt.Find(filter).ToList();
+            return await _context.Avsnitt.Find(filter).ToListAsync();
 
 
         }
 
 
-        public void TaBortPodd(string poddId) 
+        public async Task TaBortPoddAsync(string poddId) 
         { 
             var poddFilter = Builders<Poddflode>.Filter.Eq(p => p.Id, poddId);
-            _context.Poddfloden.DeleteOne(poddFilter);
+            await _context.Poddfloden.DeleteOneAsync(poddFilter);
 
             var avsnittFilter = Builders<Avsnitt>.Filter.Eq(a => a.PoddflodeId, poddId);
-            _context.Avsnitt.DeleteMany(avsnittFilter);
+            _context.Avsnitt.DeleteManyAsync(avsnittFilter);
         }
 
 

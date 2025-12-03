@@ -151,19 +151,19 @@ namespace poddcastProjektGrupp22
             return true;
         }
 
-        private void buttonVisa_Click(object sender, EventArgs e)
+        private async void buttonVisa_Click(object sender, EventArgs e)
         {
             int idx = listBox1.SelectedIndex;
             //Kolla att en källa är vald i listBox1
             if (idx < 0 || idx >= _sparadePoddar.Count)
             {
                 MessageBox.Show("Välj en källa i listan först.");
-                return;
+                return ;
             }
             //Hämta valda podd utifrån index
             var valdPodd = _sparadePoddar[idx];
             //Hämta avsnitt för vald podd
-            var avsnitt = _poddTjanst.HamtaAvsnittForPodd(valdPodd.Id);
+            var avsnitt = await _poddTjanst.HamtaAvsnittForPoddAsync(valdPodd.Id);
 
             //Sparar i fältet så att vi kan slå ihop info när man klickar på listBox2
             _aktuellaAvsnitt = avsnitt;
@@ -182,9 +182,9 @@ namespace poddcastProjektGrupp22
             }
         }
 
-        private void LaddaSparadePoddar()
+        private async Task LaddaSparadePoddar()
         {
-            var allaPoddar = _poddTjanst.HamtaAllaPoddar();
+            var allaPoddar = await _poddTjanst.HamtaAllaPoddarAsync();
 
             _sparadePoddar = allaPoddar;
 
@@ -228,7 +228,7 @@ namespace poddcastProjektGrupp22
 
             if (svar == DialogResult.Yes)
             {
-                _poddTjanst.TaBortPodd(valdPodd.Id);
+                _poddTjanst.TaBortPoddAsync(valdPodd.Id);
 
                 //Ladda om listan med sparade poddar
                 LaddaSparadePoddar();
