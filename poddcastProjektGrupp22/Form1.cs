@@ -4,6 +4,7 @@ using PoddApp.DAL.Rss;
 using PoddApp.Models;
 using PoddApp.BL.Services;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 
 namespace poddcastProjektGrupp22
@@ -12,6 +13,7 @@ namespace poddcastProjektGrupp22
     {
         private RssLasare _rssLasare;
         private List<Avsnitt> _senasteAvsnitt;
+        private List<Avsnitt> _aktuellaAvsnitt;
         private PoddTjanst _poddTjanst;
         private List<Poddflode> _sparadePoddar;
         private readonly KategoriTjanst _kategoriTjanst = new KategoriTjanst();
@@ -20,7 +22,6 @@ namespace poddcastProjektGrupp22
         public Form1()
         {
             InitializeComponent();
-
             this.Load += Form1_Load;
 
             _rssLasare = new RssLasare();
@@ -33,6 +34,8 @@ namespace poddcastProjektGrupp22
             buttonVisa.Click += buttonVisa_Click;
             buttonVisaSparadePoddar.Click += buttonVisaSparadePoddar_Click;
             buttonRadera.Click += buttonRadera_Click;
+
+            listBox2.SelectedIndexChanged += listBox2_SelectedIndexChanged;
         }
 
         private async void buttonNyhetsskalla_Click(object sender, EventArgs e)
@@ -162,6 +165,9 @@ namespace poddcastProjektGrupp22
             //Hämta avsnitt för vald podd
             var avsnitt = _poddTjanst.HamtaAvsnittForPodd(valdPodd.Id);
 
+            //Sparar i fältet så att vi kan slå ihop info när man klickar på listBox2
+            _aktuellaAvsnitt = avsnitt;
+
             //Töm listor på page 2
             listBox2.Items.Clear();
             listBox3.Items.Clear();
@@ -256,14 +262,69 @@ namespace poddcastProjektGrupp22
 
         }
 
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = listBox2.SelectedIndex;
+            if (index < 0 || _aktuellaAvsnitt == null || index >= _aktuellaAvsnitt.Count)
+                return;
+
+            var valtAvsnitt = _aktuellaAvsnitt[index];
+
+            listBox3.Items.Clear();
+
+            listBox3.Items.Add("Titel: " + valtAvsnitt.Titel);
+            listBox3.Items.Add("Datum: " + valtAvsnitt.PubliceringsDatum.ToString("yyyy-MM-dd"));
+
+            //Delar upp info och rensar Html med vår metod nedan 
+            string renInfo = RensaHtml(valtAvsnitt.Beskrivning);
+
+            listBox3.Items.Add("Info:");
+
+            //försöker dela på radbrytningarnar om det finns
+            var rader = renInfo.Split(
+                new[] { "\r\n", "\n" },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            if (rader.Length == 0)
+            {
+                //Om inga nedbrytningar så lägger vi den som en hel rad
+                listBox3.Items.Add(" " + renInfo);
+            }
+            else
+            {
+                //Lägger till varje rad under info
+                foreach (var rad in rader)
+                {
+                    listBox3.Items.Add(" " + rad);
+                }
+            }
+            //Länk 
+            listBox3.Items.Add("Länk: " + valtAvsnitt.Lank);
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 
         }
-
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private string RensaHtml(string html)
+        {
+            if (string.IsNullOrWhiteSpace(html))
+                return html;
+
+            //Gör <br> till radbrytningar först
+            html = html.Replace("<br>", "\n")
+                       .Replace("<br/>", "\n")
+                       .Replace("<br />", "\n");
+
+            //Tar bort alla taggar andra taggar som <p>...</p>
+            html = Regex.Replace(html, "<.*?>", string.Empty);
+
+            return html.Trim();
         }
     }
 }
