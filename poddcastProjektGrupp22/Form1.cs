@@ -4,6 +4,7 @@ using PoddApp.DAL.Rss;
 using PoddApp.Models;
 using PoddApp.BL.Services;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 
 namespace poddcastProjektGrupp22
@@ -273,13 +274,53 @@ namespace poddcastProjektGrupp22
 
             listBox3.Items.Add("Titel: " + valtAvsnitt.Titel);
             listBox3.Items.Add("Datum: " + valtAvsnitt.PubliceringsDatum.ToString("yyyy-MM-dd"));
-            listBox3.Items.Add("Info: " + valtAvsnitt.Beskrivning);
+
+            //Delar upp info och rensar Html med vår metod nedan 
+            string renInfo = RensaHtml(valtAvsnitt.Beskrivning);
+
+            listBox3.Items.Add("Info:");
+
+            //försöker dela på radbrytningarnar om det finns
+            var rader = renInfo.Split(
+                new[] { "\r\n", "\n" },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            if(rader.Length == 0)
+            {
+                //Om inga nedbrytningar så lägger vi den som en hel rad
+                listBox3.Items.Add(" " + renInfo);
+            }
+            else
+            {
+                //Lägger till varje rad under info
+                foreach(var rad in rader)
+                {
+                    listBox3.Items.Add(" " + rad);
+                }
+            }
+            //Länk 
             listBox3.Items.Add("Länk: " + valtAvsnitt.Lank);
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private string RensaHtml(string html)
+        {
+            if (string.IsNullOrWhiteSpace(html))
+                return html;
+
+            //Gör <br> till radbrytningar först
+            html = html.Replace("<br>", "\n")
+                       .Replace("<br/>", "\n")
+                       .Replace("<br />", "\n");
+
+            //Tar bort alla taggar andra taggar som <p>...</p>
+            html = Regex.Replace(html, "<.*?>", string.Empty);
+
+            return html.Trim();
         }
     }
 }
