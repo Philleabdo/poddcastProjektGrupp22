@@ -15,7 +15,7 @@ namespace poddcastProjektGrupp22
         private PoddTjanst _poddTjanst;
         private List<Poddflode> _sparadePoddar;
         private readonly KategoriTjanst _kategoriTjanst = new KategoriTjanst();
-        
+
 
         public Form1()
         {
@@ -104,7 +104,7 @@ namespace poddcastProjektGrupp22
             }
 
             string kategoriNamn;
-            if(kategoriText == "(Ingen kategori)")
+            if (kategoriText == "(Ingen kategori)")
             {
                 kategoriNamn = kategoriText;
             }
@@ -121,7 +121,7 @@ namespace poddcastProjektGrupp22
                 kategoriNamn = befintlig.Namn;
             }
 
-                _poddTjanst.SparaNyPodd(visningNamn, url, kategoriNamn, _senasteAvsnitt);
+            _poddTjanst.SparaNyPodd(visningNamn, url, kategoriNamn, _senasteAvsnitt);
             MessageBox.Show("Källan har sparats i registret.");
         }
 
@@ -195,7 +195,7 @@ namespace poddcastProjektGrupp22
                 listBox2.Items.Add(podd.Namn + " - " + podd.SkapaDatum.ToString("yyyy-MM-dd"));
 
                 string kategoriNamn = string.IsNullOrWhiteSpace(podd.Kategori)
-                    ?"(Ingen kategori)"
+                    ? "(Ingen kategori)"
                     : podd.Kategori;
                 //Kategori
                 listBox3.Items.Add(kategoriNamn);
@@ -253,6 +253,11 @@ namespace poddcastProjektGrupp22
             {
                 comboBoxKategori.Items.Add(k.Namn);
             }
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
 
         }
     }

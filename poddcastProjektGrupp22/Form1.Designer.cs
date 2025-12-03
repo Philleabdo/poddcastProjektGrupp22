@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            textBox1 = new TextBox();
             comboBoxKategori = new ComboBox();
             textBoxURL = new TextBox();
             buttonVisning = new Button();
@@ -47,6 +48,8 @@
             buttonVisa = new Button();
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            label3 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -61,11 +64,13 @@
             tabControl1.Margin = new Padding(4, 5, 4, 5);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1144, 750);
+            tabControl1.Size = new Size(1451, 939);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(comboBoxKategori);
             tabPage1.Controls.Add(textBoxURL);
             tabPage1.Controls.Add(buttonVisning);
@@ -78,10 +83,17 @@
             tabPage1.Margin = new Padding(4, 5, 4, 5);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(4, 5, 4, 5);
-            tabPage1.Size = new Size(1136, 712);
+            tabPage1.Size = new Size(1443, 901);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Hämta källa";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(976, 167);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(404, 31);
+            textBox1.TabIndex = 15;
             // 
             // comboBoxKategori
             // 
@@ -102,7 +114,7 @@
             // 
             // buttonVisning
             // 
-            buttonVisning.Location = new Point(897, 37);
+            buttonVisning.Location = new Point(976, 223);
             buttonVisning.Margin = new Padding(4, 5, 4, 5);
             buttonVisning.Name = "buttonVisning";
             buttonVisning.Size = new Size(203, 38);
@@ -112,7 +124,7 @@
             // 
             // buttonSpara
             // 
-            buttonSpara.Location = new Point(781, 37);
+            buttonSpara.Location = new Point(976, 284);
             buttonSpara.Margin = new Padding(4, 5, 4, 5);
             buttonSpara.Name = "buttonSpara";
             buttonSpara.Size = new Size(107, 38);
@@ -170,7 +182,7 @@
             tabPage2.Margin = new Padding(4, 5, 4, 5);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(4, 5, 4, 5);
-            tabPage2.Size = new Size(1136, 712);
+            tabPage2.Size = new Size(1443, 901);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Visa Register";
             tabPage2.UseVisualStyleBackColor = true;
@@ -201,16 +213,16 @@
             listBox3.Location = new Point(761, 95);
             listBox3.Margin = new Padding(4, 5, 4, 5);
             listBox3.Name = "listBox3";
-            listBox3.Size = new Size(287, 529);
+            listBox3.Size = new Size(663, 354);
             listBox3.TabIndex = 9;
             // 
             // listBox2
             // 
             listBox2.FormattingEnabled = true;
-            listBox2.Location = new Point(419, 95);
+            listBox2.Location = new Point(393, 95);
             listBox2.Margin = new Padding(4, 5, 4, 5);
             listBox2.Name = "listBox2";
-            listBox2.Size = new Size(333, 529);
+            listBox2.Size = new Size(349, 354);
             listBox2.TabIndex = 8;
             // 
             // buttonVisa
@@ -226,21 +238,37 @@
             // listBox1
             // 
             listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(43, 95);
+            listBox1.Location = new Point(11, 95);
             listBox1.Margin = new Padding(4, 5, 4, 5);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(365, 529);
+            listBox1.Size = new Size(365, 354);
             listBox1.TabIndex = 5;
             // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(24, 24);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(61, 4);
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(523, 8);
+            label3.Name = "label3";
+            label3.Size = new Size(174, 25);
+            label3.TabIndex = 17;
+            label3.Text = "Välj/Skriv in Kategori";
+            label3.Click += label3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1143, 750);
+            ClientSize = new Size(1452, 869);
             Controls.Add(tabControl1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
@@ -273,5 +301,8 @@
         private Button buttonRadera;
         private Button buttonVisaSparadePoddar;
         private ComboBox comboBoxKategori;
+        private TextBox textBox1;
+        private ContextMenuStrip contextMenuStrip1;
+        private Label label3;
     }
 }
