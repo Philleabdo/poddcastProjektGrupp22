@@ -50,6 +50,7 @@
             errorProvider1 = new ErrorProvider(components);
             contextMenuStrip1 = new ContextMenuStrip(components);
             label3 = new Label();
+            label2 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -69,6 +70,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(comboBoxKategori);
@@ -114,7 +116,7 @@
             // 
             // buttonVisning
             // 
-            buttonVisning.Location = new Point(976, 223);
+            buttonVisning.Location = new Point(976, 206);
             buttonVisning.Margin = new Padding(4, 5, 4, 5);
             buttonVisning.Name = "buttonVisning";
             buttonVisning.Size = new Size(203, 38);
@@ -264,6 +266,16 @@
             label3.Text = "Välj/Skriv in Kategori";
             label3.Click += label3_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(976, 130);
+            label2.Name = "label2";
+            label2.Size = new Size(210, 25);
+            label2.TabIndex = 18;
+            label2.Text = "Skriv in namn till podden";
+            label2.Click += label2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -304,5 +316,6 @@
         private TextBox textBox1;
         private ContextMenuStrip contextMenuStrip1;
         private Label label3;
+        private Label label2;
     }
 }
