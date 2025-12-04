@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using PoddApp.BL.Interface;
+using PoddApp.DAL.Interface;
 using PoddApp.Models;
 
 namespace PoddApp.BL.Services
 {
-    public class KategoriTjanst
+    public class KategoriTjanst : IKategoriTjanst
     {
+        private readonly IPoddRepository _repo;
         private readonly List<Kategori> kategorier = new List<Kategori>();
 
+        public KategoriTjanst(IPoddRepository repo)
+        {
+            _repo = repo;
+        }
 
-        public Kategori SkapaKategori(string namn)
+
+        public Task<Kategori> SkapaKategoriAsync(string namn)
         {
             // 1. Validering
             if (string.IsNullOrWhiteSpace(namn))
@@ -34,16 +43,16 @@ namespace PoddApp.BL.Services
            // 4. Lägg till
             kategorier.Add(nyKategori);
 
-            return nyKategori;
+            return Task.FromResult(nyKategori);
         }
 
-        public List<Kategori> HamtaAllaKategorier()
+        public Task<List<Kategori>> HamtaAllaKategorierAsync()
         {
             // Returnera kopia så Ui inte kan råka ändra listan direkt
-            return new List<Kategori>(kategorier);
+            return Task.FromResult(new List<Kategori>(kategorier));
         }
 
-        public void AndraNamn(string kategoriId, string nyttNamn)
+        public Task AndraNamnAsync(string kategoriId, string nyttNamn)
         {
             if (string.IsNullOrWhiteSpace(nyttNamn))
                 throw new ArgumentException("Nytt namn får inte vara tomt.");
@@ -63,14 +72,18 @@ namespace PoddApp.BL.Services
             }
 
             kategori.Namn = nyttNamn.Trim();
+
+            return Task.CompletedTask;
         }
 
-        public void TaBortKategori(string kategoriId)
+        public Task TaBortKategoriAsync(string kategoriId)
         {
             int antalBorttagna = kategorier.RemoveAll(k => k.Id == kategoriId);
 
             if (antalBorttagna == 0)
                 throw new InvalidOperationException("Kategorin finns inte.");
+
+            return Task.CompletedTask;
         }
 
     }

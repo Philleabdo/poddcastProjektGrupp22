@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PoddApp.BL.Interface;
 using PoddApp.DAL;
+using PoddApp.DAL.Interface;
 using PoddApp.Models;
 
 namespace PoddApp.BL.Services
 {
-    public class PoddTjanst
+    public class PoddTjanst : IPoddTjanst
     {
 
-        private readonly PoddRepository _repo;
+        private readonly IPoddRepository _repo;
+
+        public PoddTjanst(IPoddRepository repo)
+        {
+            _repo = repo;
+        }
 
 
         public PoddTjanst() 
@@ -17,7 +24,7 @@ namespace PoddApp.BL.Services
             _repo = new PoddRepository();
         }
 
-        public async Task SparaNyPodd(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
+        public async Task SparaNyPoddAsync(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
         {
             var podd = new Poddflode
             {
@@ -30,7 +37,7 @@ namespace PoddApp.BL.Services
            await _repo.SparaNyPoddAsync(podd, avsnitt);
         }
 
-        public async  Task<List<Poddflode>> HamtaAllaPoddarAsync() 
+        public async Task<List<Poddflode>> HamtaAllaPoddarAsync() 
         { 
             return await _repo.HamtaAllaPoddarAsync();
         }
@@ -43,6 +50,19 @@ namespace PoddApp.BL.Services
         public async Task TaBortPoddAsync(string poddId)
         {
            await _repo.TaBortPoddAsync(poddId);
+        }
+
+        public Task AndraNamnAsync(string poddId, string nyttNamn)
+        {
+            // Kräver att PoddRepository får stöd för uppdatering.
+            // Just nu slänger vi exception så du ser att det inte finns implementation ännu.
+            throw new NotImplementedException("ÄndraNamnAsync är inte implementerad ännu.");
+        }
+
+        public Task AndraKategoriAsync(string poddId, string nyKategori)
+        {
+            // Kräver att PoddRepository får stöd för uppdatering.
+            throw new NotImplementedException("ÄndraKategoriAsync är inte implementerad ännu.");
         }
 
         //Tillfälligt register (byter till MongoDB senare)

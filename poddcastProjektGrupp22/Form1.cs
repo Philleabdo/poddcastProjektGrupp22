@@ -5,6 +5,10 @@ using PoddApp.Models;
 using PoddApp.BL.Services;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using PoddApp.BL.Interface;
+using PoddApp.DAL;
+
 
 
 namespace poddcastProjektGrupp22
@@ -16,7 +20,7 @@ namespace poddcastProjektGrupp22
         private List<Avsnitt> _aktuellaAvsnitt;
         private PoddTjanst _poddTjanst;
         private List<Poddflode> _sparadePoddar;
-        private readonly KategoriTjanst _kategoriTjanst = new KategoriTjanst();
+        private readonly IKategoriTjanst _kategoriTjanst;
 
 
         public Form1()
@@ -28,6 +32,8 @@ namespace poddcastProjektGrupp22
             _senasteAvsnitt = new List<Avsnitt>();
             _poddTjanst = new PoddTjanst();
             _sparadePoddar = new List<Poddflode>();
+
+            _kategoriTjanst = new KategoriTjanst(new PoddRepository());
 
             buttonNyhetsskalla.Click += buttonNyhetsskalla_Click;
             buttonSpara.Click += buttonSpara_Click;
@@ -79,7 +85,7 @@ namespace poddcastProjektGrupp22
             }
         }
 
-        private void buttonSpara_Click(object sender, EventArgs e)
+        private async void buttonSpara_Click(object sender, EventArgs e)
         {
             string url = textBoxURL.Text.Trim();
 
@@ -113,18 +119,19 @@ namespace poddcastProjektGrupp22
             }
             else
             {
-                var befintlig = _kategoriTjanst
-                    .HamtaAllaKategorier()
+                var allaKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+
+                var befintlig = allaKategorier
                     .Find(k => k.Namn.Equals(kategoriText, StringComparison.OrdinalIgnoreCase));
                 if (befintlig == null)
                 {
-                    befintlig = _kategoriTjanst.SkapaKategori(kategoriText);
+                    befintlig = await _kategoriTjanst.SkapaKategoriAsync(kategoriText);
                     comboBoxKategori.Items.Add(befintlig.Namn);
                 }
                 kategoriNamn = befintlig.Namn;
             }
 
-            _poddTjanst.SparaNyPodd(visningNamn, url, kategoriNamn, _senasteAvsnitt);
+            await _poddTjanst.SparaNyPoddAsync(visningNamn, url, kategoriNamn, _senasteAvsnitt);
             MessageBox.Show("Källan har sparats i registret.");
         }
 
@@ -208,7 +215,7 @@ namespace poddcastProjektGrupp22
             }
         }
 
-        private void buttonRadera_Click(object sender, EventArgs e)
+        private async void buttonRadera_Click(object sender, EventArgs e)
         {
             int idx = listBox1.SelectedIndex;
 
@@ -228,10 +235,10 @@ namespace poddcastProjektGrupp22
 
             if (svar == DialogResult.Yes)
             {
-                _poddTjanst.TaBortPoddAsync(valdPodd.Id);
+                await _poddTjanst.TaBortPoddAsync(valdPodd.Id);
 
                 //Ladda om listan med sparade poddar
-                LaddaSparadePoddar();
+                await LaddaSparadePoddar();
 
                 //Töm avsnittslistorna
                 listBox2.Items.Clear();
@@ -239,21 +246,21 @@ namespace poddcastProjektGrupp22
             }
         }
 
-        private void buttonVisaSparadePoddar_Click(object sender, EventArgs e)
+        private async void buttonVisaSparadePoddar_Click(object sender, EventArgs e)
         {
-            LaddaSparadePoddar();
+            await LaddaSparadePoddar();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            _kategoriTjanst.SkapaKategori("Nyheter");
-            _kategoriTjanst.SkapaKategori("Teknik");
-            _kategoriTjanst.SkapaKategori("Sport");
-            _kategoriTjanst.SkapaKategori("Underhållning");
+            await _kategoriTjanst.SkapaKategoriAsync("Nyheter");
+            await _kategoriTjanst.SkapaKategoriAsync("Teknik");
+            await _kategoriTjanst.SkapaKategoriAsync("Sport");
+            await _kategoriTjanst.SkapaKategoriAsync("Underhållning");
 
             comboBoxKategori.Items.Clear();
 
-            var kategorier = _kategoriTjanst.HamtaAllaKategorier();
+            var kategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
 
             foreach (var k in kategorier)
             {

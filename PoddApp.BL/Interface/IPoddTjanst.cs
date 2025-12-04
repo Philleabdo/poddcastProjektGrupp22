@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace PoddApp.BL.Interface
 {
@@ -13,6 +14,6 @@ namespace PoddApp.BL.Interface
         Task SparaNyPoddAsync(string visningsnamn, string rssUrl, string kategoriId, List<Avsnitt> avsnitt);
         Task AndraNamnAsync(string poddId, string nyttNamn);
         Task AndraKategoriAsync(string poddId, string kategoriId);
-        Task TaBortAsync(string poddId);
+        Task TaBortPoddAsync(string poddId);
     }
 }

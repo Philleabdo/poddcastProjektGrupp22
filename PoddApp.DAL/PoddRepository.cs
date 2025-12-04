@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using PoddApp.DAL.Interface;
 using PoddApp.Models;
 
 namespace PoddApp.DAL
 {
-    public class PoddRepository
+    public class PoddRepository : IPoddRepository
     {
         private readonly MongoDatabas _context;
 
