@@ -15,5 +15,6 @@ namespace PoddApp.BL.Interface
         Task AndraNamnAsync(string poddId, string nyttNamn);
         Task AndraKategoriAsync(string poddId, string kategoriId);
         Task TaBortPoddAsync(string poddId);
+        Task<bool> PoddMedUrlFinnsAsync(string rssUrl);
     }
 }

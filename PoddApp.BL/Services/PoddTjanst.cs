@@ -26,6 +26,15 @@ namespace PoddApp.BL.Services
 
         public async Task SparaNyPoddAsync(string visningsNamn, string rssUrl, string kategoriNamn, List<Avsnitt> avsnitt)
         {
+            if (string.IsNullOrWhiteSpace(rssUrl))
+                throw new ArgumentException("RSS-URL får inte vara tom.");
+
+            bool finnsRedan = await _repo.PoddMedUrlFinnsAsync(rssUrl);
+            if(finnsRedan)
+            {
+                throw new InvalidOperationException("Den här podden finns redan sparad.");
+            }
+
             var podd = new Poddflode
             {
                 Namn = visningsNamn,
@@ -63,6 +72,17 @@ namespace PoddApp.BL.Services
         {
             // Kräver att PoddRepository får stöd för uppdatering.
             throw new NotImplementedException("ÄndraKategoriAsync är inte implementerad ännu.");
+        }
+
+        public async Task<bool> PoddMedUrlFinnsAsync(string rssUrl)
+        {
+            if (string.IsNullOrWhiteSpace(rssUrl))
+                throw new ArgumentException("RSS-URL får inte vara tom.");
+
+            var allaPoddar = await _repo.HamtaAllaPoddarAsync();
+
+            return allaPoddar.Exists(p =>
+                p.RssUrl.Equals(rssUrl, StringComparison.OrdinalIgnoreCase));
         }
 
         //Tillfälligt register (byter till MongoDB senare)

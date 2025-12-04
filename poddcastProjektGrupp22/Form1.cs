@@ -21,6 +21,7 @@ namespace poddcastProjektGrupp22
         private PoddTjanst _poddTjanst;
         private List<Poddflode> _sparadePoddar;
         private readonly IKategoriTjanst _kategoriTjanst;
+        private bool _sparaJustNu = false;
 
 
         public Form1()
@@ -87,52 +88,78 @@ namespace poddcastProjektGrupp22
 
         private async void buttonSpara_Click(object sender, EventArgs e)
         {
-            string url = textBoxURL.Text.Trim();
-
-            //Kontrollerar att URL finns
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                MessageBox.Show("Du måste ange en URL innan du sparar.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (_sparaJustNu)
                 return;
-            }
-            //Kontroll att vi faktiskt har hämtaat avsnitt 
-            if (_senasteAvsnitt == null || _senasteAvsnitt.Count == 0)
-            {
-                MessageBox.Show("Det finns inga avsnitt att spara. Hämta först.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            //Här kan man välja ett snyggare namn senare, från RSS-titel
-            string visningNamn = url;
 
-            //Hämtar valda kategorier
-            string kategoriText = comboBoxKategori.Text.Trim();
+            _sparaJustNu = true;
+            buttonSpara.Enabled = false;
 
-            if (string.IsNullOrWhiteSpace(kategoriText))
+            try
             {
-                kategoriText = "(Ingen kategori)";
-            }
 
-            string kategoriNamn;
-            if (kategoriText == "(Ingen kategori)")
-            {
-                kategoriNamn = kategoriText;
-            }
-            else
-            {
-                var allaKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+                string url = textBoxURL.Text.Trim();
 
-                var befintlig = allaKategorier
-                    .Find(k => k.Namn.Equals(kategoriText, StringComparison.OrdinalIgnoreCase));
-                if (befintlig == null)
+                //Kontrollerar att URL finns
+                if (string.IsNullOrWhiteSpace(url))
                 {
-                    befintlig = await _kategoriTjanst.SkapaKategoriAsync(kategoriText);
-                    comboBoxKategori.Items.Add(befintlig.Namn);
+                    MessageBox.Show("Du måste ange en URL innan du sparar.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
-                kategoriNamn = befintlig.Namn;
-            }
+                //Kontroll att vi faktiskt har hämtaat avsnitt 
+                if (_senasteAvsnitt == null || _senasteAvsnitt.Count == 0)
+                {
+                    MessageBox.Show("Det finns inga avsnitt att spara. Hämta först.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                //Här kan man välja ett snyggare namn senare, från RSS-titel
+                string visningNamn = url;
 
-            await _poddTjanst.SparaNyPoddAsync(visningNamn, url, kategoriNamn, _senasteAvsnitt);
-            MessageBox.Show("Källan har sparats i registret.");
+                //Hämtar valda kategorier
+                string kategoriText = comboBoxKategori.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(kategoriText))
+                {
+                    kategoriText = "(Ingen kategori)";
+                }
+
+                string kategoriNamn;
+                if (kategoriText == "(Ingen kategori)")
+                {
+                    kategoriNamn = kategoriText;
+                }
+                else
+                {
+                    var allaKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+
+                    var befintlig = allaKategorier
+                        .Find(k => k.Namn.Equals(kategoriText, StringComparison.OrdinalIgnoreCase));
+                    if (befintlig == null)
+                    {
+                        befintlig = await _kategoriTjanst.SkapaKategoriAsync(kategoriText);
+                        comboBoxKategori.Items.Add(befintlig.Namn);
+                    }
+                    kategoriNamn = befintlig.Namn;
+                }
+
+                await _poddTjanst.SparaNyPoddAsync(visningNamn, url, kategoriNamn, _senasteAvsnitt);
+                MessageBox.Show("Källan har sparats i registret.");
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "OBS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ett fel uppstod vid sparning: " + ex.Message,
+                                "Fel",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _sparaJustNu = false;
+                buttonSpara.Enabled = true;
+            }
         }
 
         private bool ValideraUrlFalt()

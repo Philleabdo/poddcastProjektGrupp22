@@ -66,6 +66,13 @@ namespace PoddApp.DAL
             _context.Avsnitt.DeleteManyAsync(avsnittFilter);
         }
 
+        public async Task <bool> PoddMedUrlFinnsAsync(string rssUrl)
+        {
+            var allaPoddar = await HamtaAllaPoddarAsync ();
+            return allaPoddar.Exists(p =>
+                p.RssUrl.Equals(rssUrl, StringComparison.OrdinalIgnoreCase));
+        }
+
 
     }
 }

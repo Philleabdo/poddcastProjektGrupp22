@@ -13,5 +13,6 @@ namespace PoddApp.DAL.Interface
         Task<List<Poddflode>> HamtaAllaPoddarAsync();
         Task<List<Avsnitt>> HamtaAvsnittForPoddAsync(string poddId);
         Task TaBortPoddAsync(string poddId);
+        Task<bool> PoddMedUrlFinnsAsync(string rssUrl);
     }
 }
