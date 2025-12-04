@@ -12,8 +12,7 @@ namespace PoddApp.DAL
     {
         private readonly MongoDatabas _context;
 
-
-        public PoddRepository() 
+         public PoddRepository() 
         {
             _context = new MongoDatabas();
         }
