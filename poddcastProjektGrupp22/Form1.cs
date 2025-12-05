@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PoddApp.BL.Interface;
 using PoddApp.DAL;
+using System.Linq;
 
 
 
@@ -45,6 +46,8 @@ namespace poddcastProjektGrupp22
             buttonRadera.Click += buttonRadera_Click;
 
             listBox2.SelectedIndexChanged += listBox2_SelectedIndexChanged;
+
+            comboBoxFilterKategori.SelectedIndexChanged += comboBoxFilterKategori_SelectedIndexChanged;
         }
 
         private async void buttonNyhetsskalla_Click(object sender, EventArgs e)
@@ -294,6 +297,8 @@ namespace poddcastProjektGrupp22
         {
             comboBoxKategori.Items.Clear();
 
+            await LaddaFilterKategorierAsync();
+
             // Hämta kategorier från databasen
             var kategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
 
@@ -441,6 +446,60 @@ namespace poddcastProjektGrupp22
         {
 
         }
+        private async Task LaddaFilterKategorierAsync()
+        {
+            var poddar = await _poddTjanst.HamtaAllaPoddarAsync();
+
+            var kategorier = poddar
+                .Select(p => p.Kategori)
+                .Where(k => !string.IsNullOrWhiteSpace(k))
+                .Distinct()
+                .OrderBy(k => k)
+                .ToList();
+
+            comboBoxFilterKategori.DataSource = kategorier;
+        }
+
+        private async void comboBoxFilterKategori_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var valdKategori = comboBoxFilterKategori.SelectedItem as string;
+            if (string.IsNullOrEmpty(valdKategori))
+                return;
+
+            // Hämta alla poddar
+            var allaPoddar = await _poddTjanst.HamtaAllaPoddarAsync();
+
+            // Filtrera på vald kategori
+            var filtreradePoddar = allaPoddar
+                .Where(p => p.Kategori == valdKategori)
+                .ToList();
+
+            // Uppdatera fältet som används av Visa/Radera-knapparna
+            _sparadePoddar = filtreradePoddar;
+
+            // Töm listboxarna 
+            listBox1.Items.Clear();
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+
+            // Fyll listboxarna på samma sätt som i LaddaSparadePoddar
+            foreach (var podd in _sparadePoddar)
+            {
+                // Länken
+                listBox1.Items.Add(podd.RssUrl);
+
+                // Info
+                listBox2.Items.Add(podd.Namn + " - " + podd.SkapaDatum.ToString("yyyy-MM-dd"));
+
+                string kategoriNamn = string.IsNullOrWhiteSpace(podd.Kategori)
+                    ? "(Ingen kategori)"
+                    : podd.Kategori;
+
+                // Kategori
+                listBox3.Items.Add(kategoriNamn);
+            }
+        }
+
 
         private async void buttonVisning_Click(object sender, EventArgs e)
         {
