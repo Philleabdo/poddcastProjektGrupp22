@@ -156,6 +156,9 @@ namespace poddcastProjektGrupp22
 
                 await _poddTjanst.SparaNyPoddAsync(visningNamn, url, kategoriNamn, _senasteAvsnitt);
                 MessageBox.Show("Källan har sparats i registret.");
+
+                await LaddaFilterKategorierAsync();
+
             }
             catch (InvalidOperationException ex)
             {
