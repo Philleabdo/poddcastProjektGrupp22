@@ -36,6 +36,7 @@ namespace poddcastProjektGrupp22
 
             _kategoriTjanst = new KategoriTjanst(new PoddRepository());
 
+            radera_kategori.Click += radera_kategori_Click;
             buttonNyhetsskalla.Click += buttonNyhetsskalla_Click;
             buttonSpara.Click += buttonSpara_Click;
             buttonVisa.Click += buttonVisa_Click;
@@ -305,6 +306,61 @@ namespace poddcastProjektGrupp22
 
             // Om du vill kunna skriva egna kategorier direkt i comboboxen:
             comboBoxKategori.DropDownStyle = ComboBoxStyle.DropDown;
+        }
+
+        private async void radera_kategori_Click(object sender, EventArgs e)
+        {
+            string valdKategori = comboBoxKategori.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(valdKategori))
+            {
+                MessageBox.Show("Välj en kategori att radera.");
+                return;
+            }
+
+            if (valdKategori == "(Ingen kategori)")
+            {
+                MessageBox.Show("Denna kategori kan inte tas bort.");
+                return;
+            }
+
+            // Hämta kategorin från databasen
+            var kategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+            var kategori = kategorier.Find(k =>
+                k.Namn.Equals(valdKategori, StringComparison.OrdinalIgnoreCase));
+
+            if (kategori == null)
+            {
+                MessageBox.Show("Kategorin hittades inte i databasen.");
+                return;
+            }
+
+            var svar = MessageBox.Show(
+                $"Vill du verkligen ta bort kategorin '{kategori.Namn}'?",
+                "Bekräfta borttagningen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (svar != DialogResult.Yes)
+                return;
+
+            try
+            {
+                await _kategoriTjanst.TaBortKategoriAsync(kategori.Id);
+
+                // Ta bort den från comboboxen
+                comboBoxKategori.Items.Remove(valdKategori);
+                comboBoxKategori.Text = string.Empty;
+
+                MessageBox.Show("Kategorin har raderats.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ett fel uppstod vid borttagning: " + ex.Message,
+                                "Fel",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)

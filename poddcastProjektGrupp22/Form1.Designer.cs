@@ -51,6 +51,7 @@
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
             contextMenuStrip1 = new ContextMenuStrip(components);
+            radera_kategori = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -70,6 +71,7 @@
             // 
             // tabPage1
             // 
+            tabPage1.Controls.Add(radera_kategori);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label3);
             tabPage1.Controls.Add(textBox1);
@@ -278,6 +280,15 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // radera_kategori
+            // 
+            radera_kategori.Location = new Point(523, 85);
+            radera_kategori.Name = "radera_kategori";
+            radera_kategori.Size = new Size(171, 34);
+            radera_kategori.TabIndex = 19;
+            radera_kategori.Text = "Radera Kategori";
+            radera_kategori.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -319,5 +330,6 @@
         private ContextMenuStrip contextMenuStrip1;
         private Label label3;
         private Label label2;
+        private Button radera_kategori;
     }
 }
