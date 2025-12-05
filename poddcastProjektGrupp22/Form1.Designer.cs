@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            label2 = new Label();
+            label3 = new Label();
             textBox1 = new TextBox();
             comboBoxKategori = new ComboBox();
             textBoxURL = new TextBox();
@@ -49,8 +51,6 @@
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
             contextMenuStrip1 = new ContextMenuStrip(components);
-            label3 = new Label();
-            label2 = new Label();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -90,12 +90,33 @@
             tabPage1.Text = "Hämta källa";
             tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(976, 130);
+            label2.Name = "label2";
+            label2.Size = new Size(210, 25);
+            label2.TabIndex = 18;
+            label2.Text = "Skriv in namn till podden";
+            label2.Click += label2_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(523, 8);
+            label3.Name = "label3";
+            label3.Size = new Size(174, 25);
+            label3.TabIndex = 17;
+            label3.Text = "Välj/Skriv in Kategori";
+            label3.Click += label3_Click;
+            // 
             // textBox1
             // 
             textBox1.Location = new Point(976, 167);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(404, 31);
             textBox1.TabIndex = 15;
+            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // comboBoxKategori
             // 
@@ -123,6 +144,7 @@
             buttonVisning.TabIndex = 12;
             buttonVisning.Text = "Ange visningsnamn";
             buttonVisning.UseVisualStyleBackColor = true;
+            buttonVisning.Click += buttonVisning_Click;
             // 
             // buttonSpara
             // 
@@ -255,26 +277,6 @@
             contextMenuStrip1.ImageScalingSize = new Size(24, 24);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(523, 8);
-            label3.Name = "label3";
-            label3.Size = new Size(174, 25);
-            label3.TabIndex = 17;
-            label3.Text = "Välj/Skriv in Kategori";
-            label3.Click += label3_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(976, 130);
-            label2.Name = "label2";
-            label2.Size = new Size(210, 25);
-            label2.TabIndex = 18;
-            label2.Text = "Skriv in namn till podden";
-            label2.Click += label2_Click;
             // 
             // Form1
             // 

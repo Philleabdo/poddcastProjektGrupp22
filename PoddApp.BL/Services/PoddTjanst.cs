@@ -61,18 +61,13 @@ namespace PoddApp.BL.Services
            await _repo.TaBortPoddAsync(poddId);
         }
 
-        public Task AndraNamnAsync(string poddId, string nyttNamn)
+        public async Task AndraNamnAsync(string poddId, string nyttNamn)
         {
             // Kräver att PoddRepository får stöd för uppdatering.
             // Just nu slänger vi exception så du ser att det inte finns implementation ännu.
             throw new NotImplementedException("ÄndraNamnAsync är inte implementerad ännu.");
         }
 
-        public Task AndraKategoriAsync(string poddId, string nyKategori)
-        {
-            // Kräver att PoddRepository får stöd för uppdatering.
-            throw new NotImplementedException("ÄndraKategoriAsync är inte implementerad ännu.");
-        }
 
         public async Task<bool> PoddMedUrlFinnsAsync(string rssUrl)
         {

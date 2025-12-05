@@ -192,7 +192,7 @@ namespace poddcastProjektGrupp22
             if (idx < 0 || idx >= _sparadePoddar.Count)
             {
                 MessageBox.Show("Välj en källa i listan först.");
-                return ;
+                return;
             }
             //Hämta valda podd utifrån index
             var valdPodd = _sparadePoddar[idx];
@@ -359,6 +359,16 @@ namespace poddcastProjektGrupp22
             html = Regex.Replace(html, "<.*?>", string.Empty);
 
             return html.Trim();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonVisning_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
