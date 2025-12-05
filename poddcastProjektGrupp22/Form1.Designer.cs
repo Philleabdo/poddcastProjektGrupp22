@@ -31,18 +31,19 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            radera_kategori = new Button();
             label2 = new Label();
             label3 = new Label();
-            textBox1 = new TextBox();
             comboBoxKategori = new ComboBox();
             textBoxURL = new TextBox();
-            buttonVisning = new Button();
             buttonSpara = new Button();
             label1 = new Label();
             listBoxLankar = new ListBox();
             listBoxInformation = new ListBox();
             buttonNyhetsskalla = new Button();
             tabPage2 = new TabPage();
+            buttonVisning = new Button();
+            textBox1 = new TextBox();
             buttonVisaSparadePoddar = new Button();
             buttonRadera = new Button();
             listBox3 = new ListBox();
@@ -51,7 +52,6 @@
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
             contextMenuStrip1 = new ContextMenuStrip(components);
-            radera_kategori = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -74,10 +74,8 @@
             tabPage1.Controls.Add(radera_kategori);
             tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label3);
-            tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(comboBoxKategori);
             tabPage1.Controls.Add(textBoxURL);
-            tabPage1.Controls.Add(buttonVisning);
             tabPage1.Controls.Add(buttonSpara);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(listBoxLankar);
@@ -91,6 +89,15 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Hämta källa";
             tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // radera_kategori
+            // 
+            radera_kategori.Location = new Point(523, 85);
+            radera_kategori.Name = "radera_kategori";
+            radera_kategori.Size = new Size(171, 34);
+            radera_kategori.TabIndex = 19;
+            radera_kategori.Text = "Radera Kategori";
+            radera_kategori.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -112,14 +119,6 @@
             label3.Text = "Välj/Skriv in Kategori";
             label3.Click += label3_Click;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(976, 167);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(404, 31);
-            textBox1.TabIndex = 15;
-            textBox1.TextChanged += textBox1_TextChanged;
-            // 
             // comboBoxKategori
             // 
             comboBoxKategori.FormattingEnabled = true;
@@ -136,17 +135,6 @@
             textBoxURL.Name = "textBoxURL";
             textBoxURL.Size = new Size(508, 31);
             textBoxURL.TabIndex = 13;
-            // 
-            // buttonVisning
-            // 
-            buttonVisning.Location = new Point(976, 206);
-            buttonVisning.Margin = new Padding(4, 5, 4, 5);
-            buttonVisning.Name = "buttonVisning";
-            buttonVisning.Size = new Size(203, 38);
-            buttonVisning.TabIndex = 12;
-            buttonVisning.Text = "Ange visningsnamn";
-            buttonVisning.UseVisualStyleBackColor = true;
-            buttonVisning.Click += buttonVisning_Click;
             // 
             // buttonSpara
             // 
@@ -198,6 +186,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonVisning);
+            tabPage2.Controls.Add(textBox1);
             tabPage2.Controls.Add(buttonVisaSparadePoddar);
             tabPage2.Controls.Add(buttonRadera);
             tabPage2.Controls.Add(listBox3);
@@ -212,6 +202,23 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Visa Register";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonVisning
+            // 
+            buttonVisning.Location = new Point(393, 556);
+            buttonVisning.Margin = new Padding(4, 5, 4, 5);
+            buttonVisning.Name = "buttonVisning";
+            buttonVisning.Size = new Size(203, 38);
+            buttonVisning.TabIndex = 17;
+            buttonVisning.Text = "Ange visningsnamn";
+            buttonVisning.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(393, 501);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(365, 31);
+            textBox1.TabIndex = 16;
             // 
             // buttonVisaSparadePoddar
             // 
@@ -280,15 +287,6 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // radera_kategori
-            // 
-            radera_kategori.Location = new Point(523, 85);
-            radera_kategori.Name = "radera_kategori";
-            radera_kategori.Size = new Size(171, 34);
-            radera_kategori.TabIndex = 19;
-            radera_kategori.Text = "Radera Kategori";
-            radera_kategori.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -302,6 +300,7 @@
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
             tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
@@ -311,7 +310,6 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TextBox textBoxURL;
-        private Button buttonVisning;
         private Button buttonSpara;
         private Label label1;
         private ListBox listBoxLankar;
@@ -326,10 +324,11 @@
         private Button buttonRadera;
         private Button buttonVisaSparadePoddar;
         private ComboBox comboBoxKategori;
-        private TextBox textBox1;
         private ContextMenuStrip contextMenuStrip1;
         private Label label3;
         private Label label2;
         private Button radera_kategori;
+        private Button buttonVisning;
+        private TextBox textBox1;
     }
 }
