@@ -118,8 +118,8 @@ namespace poddcastProjektGrupp22
                     MessageBox.Show("Det finns inga avsnitt att spara. Hämta först.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                
-                string visningNamn = textBox1.Text?.Trim();
+
+                string visningNamn = addName.Text?.Trim();
                 if (string.IsNullOrWhiteSpace(visningNamn))
                 {
                     visningNamn = url; // visa url om man inte skrivit något
@@ -150,7 +150,7 @@ namespace poddcastProjektGrupp22
                         comboBoxKategori.Items.Add(befintlig.Namn);
                     }
 
-                    
+
                     kategoriNamn = befintlig.Namn;
                 }
 
@@ -633,6 +633,11 @@ namespace poddcastProjektGrupp22
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
+        }
+
+        private void addName_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
