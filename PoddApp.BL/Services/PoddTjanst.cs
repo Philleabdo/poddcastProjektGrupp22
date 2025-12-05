@@ -69,7 +69,16 @@ namespace PoddApp.BL.Services
             await _repo.UppdateraPoddNamnAsync(poddId, nyttNamn.Trim());
         }
 
-        
+        public async Task AndraKategoriForPoddarAsync(string gammaltKategoriNamn, string nyttKategoriNamn)
+        {
+            await _repo.UppdateraKategoriNamnForPoddarAsync(gammaltKategoriNamn, nyttKategoriNamn);
+        }
+
+        public async Task UppdateraKategoriNamnForPoddarAsync(string gammaltNamn, string nyttNamn)
+        {
+            // återanvänd din befintliga metod, eller gå direkt till _repo
+            await _repo.UppdateraKategoriNamnForPoddarAsync(gammaltNamn, nyttNamn);
+        }
 
         public async Task<bool> PoddMedUrlFinnsAsync(string rssUrl)
         {

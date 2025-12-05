@@ -63,6 +63,18 @@ namespace PoddApp.DAL
 
         }
 
+        public async Task UppdateraKategoriNamnForPoddarAsync(string gammaltNamn, string nyttNamn)
+        {
+            await ExecuteTransactionAsync(async session =>
+            {
+                var filter = Builders<Poddflode>.Filter.Eq(p => p.Kategori, gammaltNamn);
+                var update = Builders<Poddflode>.Update.Set(p => p.Kategori, nyttNamn);
+
+                await _context.Poddfloden.UpdateManyAsync(session, filter, update);
+            });
+        }
+
+
 
 
         public async Task<List<Avsnitt>> HamtaAvsnittForPoddAsync(string poddId) 

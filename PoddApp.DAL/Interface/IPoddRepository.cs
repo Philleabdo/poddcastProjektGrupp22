@@ -15,5 +15,7 @@ namespace PoddApp.DAL.Interface
         Task TaBortPoddAsync(string poddId);
         Task<bool> PoddMedUrlFinnsAsync(string rssUrl);
         Task UppdateraPoddNamnAsync(string poddId, string nyttNamn);
+        Task UppdateraKategoriNamnForPoddarAsync(string gammaltNamn, string nyttNamn);
+
     }
 }

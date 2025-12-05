@@ -42,6 +42,10 @@
             listBoxInformation = new ListBox();
             buttonNyhetsskalla = new Button();
             tabPage2 = new TabPage();
+            buttonAndraKategoriNamn = new Button();
+            textBoxKategoriNamn = new TextBox();
+            comboBoxFilterKategori = new ComboBox();
+            label4 = new Label();
             buttonVisning = new Button();
             textBox1 = new TextBox();
             buttonVisaSparadePoddar = new Button();
@@ -52,8 +56,6 @@
             listBox1 = new ListBox();
             errorProvider1 = new ErrorProvider(components);
             contextMenuStrip1 = new ContextMenuStrip(components);
-            label4 = new Label();
-            comboBoxFilterKategori = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -84,7 +86,7 @@
             tabPage1.Controls.Add(buttonNyhetsskalla);
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(1008, 535);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Hämta källa";
@@ -93,7 +95,7 @@
             // radera_kategori
             // 
             radera_kategori.Location = new Point(366, 51);
-            radera_kategori.Margin = new Padding(2, 2, 2, 2);
+            radera_kategori.Margin = new Padding(2);
             radera_kategori.Name = "radera_kategori";
             radera_kategori.Size = new Size(120, 20);
             radera_kategori.TabIndex = 19;
@@ -182,6 +184,8 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(buttonAndraKategoriNamn);
+            tabPage2.Controls.Add(textBoxKategoriNamn);
             tabPage2.Controls.Add(comboBoxFilterKategori);
             tabPage2.Controls.Add(label4);
             tabPage2.Controls.Add(buttonVisning);
@@ -194,15 +198,48 @@
             tabPage2.Controls.Add(listBox1);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 3, 3, 3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(1008, 535);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Visa Register";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonAndraKategoriNamn
+            // 
+            buttonAndraKategoriNamn.Location = new Point(533, 313);
+            buttonAndraKategoriNamn.Name = "buttonAndraKategoriNamn";
+            buttonAndraKategoriNamn.Size = new Size(147, 23);
+            buttonAndraKategoriNamn.TabIndex = 22;
+            buttonAndraKategoriNamn.Text = "Ändra kategorinamn";
+            buttonAndraKategoriNamn.UseVisualStyleBackColor = true;
+            // 
+            // textBoxKategoriNamn
+            // 
+            textBoxKategoriNamn.Location = new Point(533, 284);
+            textBoxKategoriNamn.Name = "textBoxKategoriNamn";
+            textBoxKategoriNamn.Size = new Size(159, 23);
+            textBoxKategoriNamn.TabIndex = 21;
+            // 
+            // comboBoxFilterKategori
+            // 
+            comboBoxFilterKategori.FormattingEnabled = true;
+            comboBoxFilterKategori.Location = new Point(118, 284);
+            comboBoxFilterKategori.Name = "comboBoxFilterKategori";
+            comboBoxFilterKategori.Size = new Size(121, 23);
+            comboBoxFilterKategori.TabIndex = 20;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(9, 284);
+            label4.Name = "label4";
+            label4.Size = new Size(103, 15);
+            label4.TabIndex = 19;
+            label4.Text = "Sortera kategorier:";
+            // 
             // buttonVisning
             // 
-            buttonVisning.Location = new Point(275, 334);
+            buttonVisning.Location = new Point(275, 312);
             buttonVisning.Name = "buttonVisning";
             buttonVisning.Size = new Size(142, 23);
             buttonVisning.TabIndex = 17;
@@ -211,10 +248,10 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(275, 301);
-            textBox1.Margin = new Padding(2, 2, 2, 2);
+            textBox1.Location = new Point(275, 284);
+            textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(257, 23);
+            textBox1.Size = new Size(194, 23);
             textBox1.TabIndex = 16;
             // 
             // buttonVisaSparadePoddar
@@ -278,23 +315,6 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(9, 284);
-            label4.Name = "label4";
-            label4.Size = new Size(103, 15);
-            label4.TabIndex = 19;
-            label4.Text = "Sortera kategorier:";
-            // 
-            // comboBoxFilterKategori
-            // 
-            comboBoxFilterKategori.FormattingEnabled = true;
-            comboBoxFilterKategori.Location = new Point(118, 284);
-            comboBoxFilterKategori.Name = "comboBoxFilterKategori";
-            comboBoxFilterKategori.Size = new Size(121, 23);
-            comboBoxFilterKategori.TabIndex = 20;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -339,5 +359,7 @@
         private TextBox textBox1;
         private Label label4;
         private ComboBox comboBoxFilterKategori;
+        private Button buttonAndraKategoriNamn;
+        private TextBox textBoxKategoriNamn;
     }
 }

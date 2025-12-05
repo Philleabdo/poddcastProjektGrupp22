@@ -12,5 +12,7 @@ namespace PoddApp.BL.Interface
         Task<List<Kategori>> HamtaAllaKategorierAsync();
         Task AndraNamnAsync(string kategoriId, string nyttNamn);
         Task TaBortKategoriAsync(string kategoriId);
+
+        Task<Kategori> AndraKategoriNamnAsync(string kategoriId, string nyttNamn);
     }
 }

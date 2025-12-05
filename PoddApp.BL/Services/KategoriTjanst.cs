@@ -56,6 +56,23 @@ namespace PoddApp.BL.Services
             return await _kategorier.Find(_ => true).ToListAsync();
         }
 
+        public async Task<Kategori> AndraKategoriNamnAsync(string kategoriId, string nyttNamn)
+        {
+            if (string.IsNullOrWhiteSpace(nyttNamn))
+                throw new ArgumentException("Kategorin måste ha ett namn.");
+
+            // Återanvänd befintlig logik
+            await AndraNamnAsync(kategoriId, nyttNamn);
+
+            // Hämta och returnera den uppdaterade kategorin
+            var uppdateradKategori = await _kategorier
+                .Find(k => k.Id == kategoriId)
+                .FirstOrDefaultAsync();
+
+            return uppdateradKategori;
+        }
+
+
         public async Task AndraNamnAsync(string kategoriId, string nyttNamn)
         {
             if (string.IsNullOrWhiteSpace(nyttNamn))

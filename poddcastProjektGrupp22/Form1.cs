@@ -48,6 +48,8 @@ namespace poddcastProjektGrupp22
             listBox2.SelectedIndexChanged += listBox2_SelectedIndexChanged;
 
             comboBoxFilterKategori.SelectedIndexChanged += comboBoxFilterKategori_SelectedIndexChanged;
+
+            buttonAndraKategoriNamn.Click += buttonAndraKategoriNamn_Click;
         }
 
         private async void buttonNyhetsskalla_Click(object sender, EventArgs e)
@@ -459,6 +461,92 @@ namespace poddcastProjektGrupp22
 
             comboBoxFilterKategori.DataSource = kategorier;
         }
+
+        private async void buttonAndraKategoriNamn_Click(object sender, EventArgs e)
+        {
+            // 1. Nytt namn från textboxen
+            string nyttNamn = textBoxKategoriNamn.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(nyttNamn))
+            {
+                MessageBox.Show("Skriv ett nytt kategorinamn.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Kolla att något är markerat i listBox3
+            int index = listBox3.SelectedIndex;
+            if (index < 0)
+            {
+                MessageBox.Show("Markera en kategori i listan (listBox3).", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 3. Gamla namnet = texten i listBox3
+            string gammaltNamn = listBox3.Items[index]?.ToString();
+
+            if (string.IsNullOrWhiteSpace(gammaltNamn))
+            {
+                MessageBox.Show("Kunde inte läsa det gamla kategorinamnet.", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.Equals(gammaltNamn, nyttNamn, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Det nya namnet är samma som det gamla.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            try
+            {
+                // 4. Försök hitta kategorin i Kategorier-collectionen
+                var allaKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+
+                var kategori = allaKategorier
+                    .FirstOrDefault(k => k.Namn.Equals(gammaltNamn, StringComparison.OrdinalIgnoreCase));
+
+                if (kategori != null)
+                {
+                    // 5a. Om den finns: uppdatera namnet i Kategorier-kollektionen
+                    await _kategoriTjanst.AndraKategoriNamnAsync(kategori.Id, nyttNamn);
+                }
+                else
+                {
+                    // 5b. Om den inte finns: skapa kategori med det nya namnet (frivilligt)
+                    //    så att comboboxen får med det nya namnet också.
+                    await _kategoriTjanst.SkapaKategoriAsync(nyttNamn);
+                }
+
+                // 6. Uppdatera ALLA poddar som hade det gamla kategorinamnet
+                await _poddTjanst.UppdateraKategoriNamnForPoddarAsync(gammaltNamn, nyttNamn);
+
+                // 7. Uppdatera comboboxen där man väljer kategori när man sparar
+                comboBoxKategori.Items.Clear();
+                var uppdateradeKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+                foreach (var k in uppdateradeKategorier)
+                {
+                    comboBoxKategori.Items.Add(k.Namn);
+                }
+
+                // 8. Uppdatera filter-comboboxen (bygger på poddarnas kategorier)
+                await LaddaFilterKategorierAsync();
+
+                // 9. Ladda om poddlistan så listBox1/2/3 visar nya kategorinamnet
+                textBoxKategoriNamn.Clear();
+                await LaddaSparadePoddar();
+
+                MessageBox.Show("Kategorinamnet har ändrats.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ett fel uppstod vid ändring: " + ex.Message,
+                                "Fel",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+
+
 
         private async void comboBoxFilterKategori_SelectedIndexChanged(object sender, EventArgs e)
         {
