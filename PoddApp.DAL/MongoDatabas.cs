@@ -5,27 +5,25 @@ namespace PoddApp.DAL
 {
     public class MongoDatabas
     {
-        private readonly IMongoClient _client;
-
         private readonly IMongoDatabase _database;
 
         private const string ConnectionString = "mongodb+srv://PoddAdmin:PoddAdminLogin@orumongodb.213vyyw.mongodb.net/?appName=OruMongoDB";
 
         private const string DatabaseName = "OruMongoDB";
 
-
+        public MongoClient Client { get; }
 
 
         public MongoDatabas()
         {
         
-            _client = new MongoClient(ConnectionString);
+            Client = new MongoClient(ConnectionString);
 
-            _database = _client.GetDatabase(DatabaseName);
+            _database = Client.GetDatabase(DatabaseName);
 
         }
 
-        public IMongoClient Client => _client;
+       
 
         public IMongoCollection<Poddflode> Poddfloden => _database.GetCollection<Poddflode>("PoddFloden");
 

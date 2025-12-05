@@ -25,71 +25,71 @@ namespace PoddApp.BL.Services
         }
 
 
-        public Task<Kategori> SkapaKategoriAsync(string namn)
+        public async Task<Kategori> SkapaKategoriAsync(string namn)
         {
-            // 1. Validering
             if (string.IsNullOrWhiteSpace(namn))
                 throw new ArgumentException("Kategorin måste ha ett namn.");
 
-            // 2. Kolla om kategorin redan finns (case insensitive)
-            bool finnsRedan = kategorier
-                .Exists(k => k.Namn.Equals(namn, StringComparison.OrdinalIgnoreCase));
+            var trimNamn = namn.Trim();
+
+            // Kolla om det redan finns en kategori med samma namn
+            var filter = Builders<Kategori>.Filter.Eq(k => k.Namn, trimNamn);
+            bool finnsRedan = await _kategorier.Find(filter).AnyAsync();
 
             if (finnsRedan)
                 throw new InvalidOperationException("En kategori med detta namn finns redan.");
 
-
-            // 3. Skapa kategorin
             var nyKategori = new Kategori
             {
                 Id = Guid.NewGuid().ToString(),
-                Namn = namn.Trim()
+                Namn = trimNamn
             };
 
-           // 4. Lägg till
-            kategorier.Add(nyKategori);
+            await _kategorier.InsertOneAsync(nyKategori);
 
-            return Task.FromResult(nyKategori);
+            return nyKategori;
         }
 
-        public Task<List<Kategori>> HamtaAllaKategorierAsync()
+        public async Task<List<Kategori>> HamtaAllaKategorierAsync()
         {
-            // Returnera kopia så Ui inte kan råka ändra listan direkt
-            return Task.FromResult(new List<Kategori>(kategorier));
+            // Hämta alla kategorier från databasen
+            return await _kategorier.Find(_ => true).ToListAsync();
         }
 
-        public Task AndraNamnAsync(string kategoriId, string nyttNamn)
+        public async Task AndraNamnAsync(string kategoriId, string nyttNamn)
         {
             if (string.IsNullOrWhiteSpace(nyttNamn))
                 throw new ArgumentException("Nytt namn får inte vara tomt.");
 
-            var kategori = kategorier.Find(k => k.Id == kategoriId);
+            var trimNyttNamn = nyttNamn.Trim();
 
+            // Finns kategorin?
+            var kategori = await _kategorier
+                .Find(k => k.Id == kategoriId)
+                .FirstOrDefaultAsync();
 
             if (kategori == null)
                 throw new Exception("Kategorin finns inte.");
 
             // Kolla om någon annan kategori har samma namn
-            if (kategorier.Exists(k =>
-            k.Namn.Equals(nyttNamn, StringComparison.OrdinalIgnoreCase) &&
-            k.Id != kategoriId))
-            {
+            bool namnUpptaget = await _kategorier
+                .Find(k => k.Namn == trimNyttNamn && k.Id != kategoriId)
+                .AnyAsync();
+
+            if (namnUpptaget)
                 throw new InvalidOperationException("En annan kategori har redan detta namn.");
-            }
 
-            kategori.Namn = nyttNamn.Trim();
+            var update = Builders<Kategori>.Update.Set(k => k.Namn, trimNyttNamn);
 
-            return Task.CompletedTask;
+            await _kategorier.UpdateOneAsync(k => k.Id == kategoriId, update);
         }
 
-        public Task TaBortKategoriAsync(string kategoriId)
+        public async Task TaBortKategoriAsync(string kategoriId)
         {
-            int antalBorttagna = kategorier.RemoveAll(k => k.Id == kategoriId);
+            var result = await _kategorier.DeleteOneAsync(k => k.Id == kategoriId);
 
-            if (antalBorttagna == 0)
+            if (result.DeletedCount == 0)
                 throw new InvalidOperationException("Kategorin finns inte.");
-
-            return Task.CompletedTask;
         }
 
     }

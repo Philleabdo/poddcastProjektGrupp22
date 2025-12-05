@@ -130,14 +130,16 @@ namespace poddcastProjektGrupp22
                 else
                 {
                     var allaKategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
-
                     var befintlig = allaKategorier
                         .Find(k => k.Namn.Equals(kategoriText, StringComparison.OrdinalIgnoreCase));
+
                     if (befintlig == null)
                     {
                         befintlig = await _kategoriTjanst.SkapaKategoriAsync(kategoriText);
                         comboBoxKategori.Items.Add(befintlig.Namn);
                     }
+
+                    
                     kategoriNamn = befintlig.Namn;
                 }
 
@@ -280,20 +282,29 @@ namespace poddcastProjektGrupp22
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            await _kategoriTjanst.SkapaKategoriAsync("Nyheter");
-            await _kategoriTjanst.SkapaKategoriAsync("Teknik");
-            await _kategoriTjanst.SkapaKategoriAsync("Sport");
-            await _kategoriTjanst.SkapaKategoriAsync("Underhållning");
-
             comboBoxKategori.Items.Clear();
 
+            // Hämta kategorier från databasen
             var kategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+
+            // Om databasen är tom första gången, lägg in standardkategorier
+            if (kategorier.Count == 0)
+            {
+                await _kategoriTjanst.SkapaKategoriAsync("Nyheter");
+                await _kategoriTjanst.SkapaKategoriAsync("Teknik");
+                await _kategoriTjanst.SkapaKategoriAsync("Sport");
+                await _kategoriTjanst.SkapaKategoriAsync("Underhållning");
+
+                kategorier = await _kategoriTjanst.HamtaAllaKategorierAsync();
+            }
 
             foreach (var k in kategorier)
             {
                 comboBoxKategori.Items.Add(k.Namn);
             }
 
+            // Om du vill kunna skriva egna kategorier direkt i comboboxen:
+            comboBoxKategori.DropDownStyle = ComboBoxStyle.DropDown;
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
