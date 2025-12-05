@@ -13,7 +13,6 @@ namespace PoddApp.BL.Interface
 
         Task SparaNyPoddAsync(string visningsnamn, string rssUrl, string kategoriId, List<Avsnitt> avsnitt);
         Task AndraNamnAsync(string poddId, string nyttNamn);
-        Task AndraKategoriAsync(string poddId, string kategoriId);
         Task TaBortPoddAsync(string poddId);
         Task<bool> PoddMedUrlFinnsAsync(string rssUrl);
     }

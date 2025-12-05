@@ -31,5 +31,7 @@ namespace PoddApp.DAL
 
         public IMongoCollection<Avsnitt> Avsnitt => _database.GetCollection<Avsnitt>("Avsnitt");
 
+        public IMongoCollection<Kategori> Kategorier => _database.GetCollection<Kategori>("Kategorier");
+
     }
 }

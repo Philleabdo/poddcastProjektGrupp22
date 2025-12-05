@@ -1,21 +1,27 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using PoddApp.BL.Interface;
+using PoddApp.DAL;
+using PoddApp.DAL.Interface;
+using PoddApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using PoddApp.BL.Interface;
-using PoddApp.DAL.Interface;
-using PoddApp.Models;
 
 namespace PoddApp.BL.Services
 {
     public class KategoriTjanst : IKategoriTjanst
     {
         private readonly IPoddRepository _repo;
-        private readonly List<Kategori> kategorier = new List<Kategori>();
+
+        private readonly IMongoCollection<Kategori> _kategorier;
 
         public KategoriTjanst(IPoddRepository repo)
         {
             _repo = repo;
+
+            var db = new MongoDatabas();
+            _kategorier = db.Kategorier;
         }
 
 
